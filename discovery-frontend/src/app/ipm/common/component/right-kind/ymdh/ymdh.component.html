@@ -1,0 +1,47 @@
+<div class="range_group">
+
+  
+  <!-- <div class="chk_box checkbox"> // 비교분석 요건 파악중
+    <input type="checkbox" name="analysis" id="analysis">
+    <label for="analysis"><span>비교분석 사용하기</span></label>
+  </div> -->
+
+  <p class="date_time_select">
+    분석 기간
+    <button type="button" class="btn_add" (click)="addDate()">
+      <span class="ico_plus_small">추가</span>
+    </button>
+  </p>
+
+  <div class="date_picker_wrap" *ngFor="let item of dateList; let i = index">
+    <div class="date_input_box ico_calendar">
+      <input type="text" class="date_num" (blur)="selectDate($event, item, 0)" [value]="item.formatDateRange[0] || ''" (change)="changeInputDate($event, i, 0)">
+
+      <div class="date_time_wrap">
+        <label class="custom-select time_select">
+          <select (change)="selectStartTime($event, item)">
+            <option *ngFor="let selectItem of dateTime" [selected]="item.dateRange[0].substring(8,10) == selectItem">{{selectItem}}</option>
+          </select>
+        </label>
+      </div>
+
+    </div>
+    <div class="date_input_box ico_calendar_r">
+      <input type="text" class="date_num" (blur)="selectDate($event, item, 1)" [value]="item.formatDateRange[1] || ''" (change)="changeInputDate($event, i, 1)">
+
+      <div class="date_time_wrap">
+        <label class="custom-select time_select">
+          <select (change)="selectEndTime($event, item)">
+              <option *ngFor="let selectItem of dateTime" [selected]="item.dateRange[1].substring(8,10) == selectItem">{{selectItem}}</option>
+          </select>
+        </label>
+      </div>
+
+    </div>
+    <div class="btn_del_wrap">
+      <button type="button" class="btn_del" (click)="deleteDate(i)">delete</button>
+    </div>
+  </div>
+
+</div>
+<!--// datepicker -->

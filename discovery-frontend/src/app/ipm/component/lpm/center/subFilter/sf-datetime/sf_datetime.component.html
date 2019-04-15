@@ -1,0 +1,33 @@
+<!-- result group -->
+<div class="layer_sett_result">
+    <div class="date_picker_wrap">
+        <div class="date_input_box ico_calendar">
+            <input type="text" id="input-rsrp-datetime-start" class="date_num">
+
+            <div class="date_time_wrap">
+                <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                    <select (change)="onChangeHour(true, $event.target.value);" ([ngModel])="startSelectedHour">
+                        <option [value]="hour" *ngFor="let hour of hourList" [selected]="hour==startSelectedHour">{{hour}}</option>
+                    </select>
+                </label>
+            </div>
+
+        </div>
+        <div class="date_input_box ico_calendar_r">
+            <input type="text" id="input-rsrp-datetime-end" class="date_num">
+
+            <div class="date_time_wrap">
+                <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                    <select (change)="onChangeHour(false, $event.target.value);" [(ngModel)]="endSelectedHour">
+                        <option [value]=hour *ngFor="let hour of hourList" [selected]="hour==endSelectedHour">{{hour}}</option>
+                    </select>
+                </label>
+            </div>
+
+        </div>
+    </div>
+    
+    <button type="button" class="btn_done mt_10" (click)="onClickApplySubFilter()">
+        <span class="ico_search">완료</span>
+    </button>
+</div>

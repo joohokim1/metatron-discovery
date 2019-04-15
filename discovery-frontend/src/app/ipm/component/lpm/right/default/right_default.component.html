@@ -1,0 +1,113 @@
+<!-- 즐겨찾기 -->
+<bmrk [bmrkData]="bmrkList" (onChangeFilter)="onChangeBmrk($event)" (onBmrkRemoveCheck)="onClickRemoveBmrk($event)"></bmrk>
+<!--// 즐겨찾기 -->
+
+<!-- 필터관리 -->
+<div class="filter_set_box">
+
+    <p class="title">
+        필터관리<span class="guide_txt">{{bmrkTitle}}</span>
+        <span class="con_num">{{filterList.length}}</span>
+    </p>
+
+    <!-- filter list -->
+    <ul *ngIf="filterList.length" class="filter_list_box iscroll" data-mcs-theme="minimal-dark">
+        <li *ngFor="let item of filterList; let i = index" class="filter_item_box" (click)="setUIMetaInfo(item)">
+            <button type="button" class="status_not" *ngIf="item.scrnClNm!='datetime'" [class.on]="item.type == 'not'" (click)="onClickReverseFilterCondition($event, i)">NOT</button>
+            <p class="filter_con" [class.required]="item.fltrDelYn == 'N' ">{{item.scrnNm}} : {{getReplaceFilterNm(item.dtNm)}}</p>
+            <button type="button" *ngIf="!item.fltrDelYn.includes('N')" class="btn_del" (click)="onClickRemoveFilter($event, item)">delete</button>
+        </li>
+    </ul>
+    <div *ngIf="!filterList.length" class="filter_nodata">
+        검색된 필터가 없습니다.
+    </div>
+    <!--// filter list -->
+
+    <!-- button -->
+    <div *ngIf="filterList.length" class="filter_set_btn txt_c">
+        <!-- 활성화 시 'on'추가 -->
+        <button type="button" class="set_btn add" (click)="onClickShowBmrkPopup(true)">추가</button>
+        <button type="button" *ngIf="isBmrkSave" class="set_btn save" (click)="onClickShowBmrkModPopup(true)">저장</button>
+        <button type="button" class="set_btn reset" (click)="onClickReset()">초기화</button>
+        <button type="button" class="set_btn upload" (click)="onClickUpload()">업로드</button>
+    </div>
+        
+    <button *ngIf="!filterList.length" type="button" class="fillter_upload">
+        <span class="ico_upload">CSV업로드</span>
+    </button>
+    <!--// button -->
+
+    <!-- Height Slider -->
+    <div class="h_slider">SLIDER</div>
+    <!--// Height Slider -->
+
+</div>
+
+<!-- 우측 선택적 컨텐츠 -->
+<right-kind [hidden]="eventCtrl.isRightKindHide" 
+    [menuDetailData]="metaInfo" 
+    [isRightFlexible]="eventCtrl.isRightFlexible"
+    (onCloseRightKind)="eventCtrl.rightKindClose()" 
+    (onSubmitRightKind)="onClickApplyFilter($event)">
+</right-kind>
+<!--// 우측 선택적 컨텐츠 -->
+
+<!-- 즐겨찾기 추가 팝업 -->
+<div class="popup_wrap favorite_add" [class.dsp_block]="addBmrkPopup" >
+
+    <div class="popup_head">
+      <h2>즐겨찾기 추가</h2>
+      <a href="javascript:;" (click)="onClickShowBmrkPopup(false)"></a>
+    </div>
+
+    <!-- 팝업 컨텐츠 -->
+    <div class="popup_contents">
+
+      <div class="input_header">
+        <span class="header_title">제목</span>
+        <span class="txt_count">{{addBmrkNm.value.length}} / 20 자</span>
+      </div>
+
+      <input #addBmrkNm type="text" class="favorite_input" 
+        [(ngModel)]="bmrkTitle" (ngModelChange)="null"
+        placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20">
+    </div>
+    <!-- 팝업 컨텐츠 -->
+
+    <div class="pop_btn_wrap">
+      <button type="button" class="btn left confirm" (click)='onClickAddBmrk()'>추가</button><button type="button" class="btn right" (click)="onClickShowBmrkPopup(false)">취소</button>
+    </div>
+
+  </div>
+  <!--// 즐겨찾기 추가 팝업 -->
+
+  <!-- 즐겨찾기 수정 팝업 -->
+  <div class="popup_wrap favorite_modify" [class.dsp_block]="modBmrkPopup">
+
+    <div class="popup_head">
+      <h2>즐겨찾기 수정</h2>
+      <a href="javascript:;" (click)="onClickShowBmrkModPopup(false)"></a>
+    </div>
+
+    <!-- 팝업 컨텐츠 -->
+    <div class="popup_contents">
+
+      <div class="input_header">
+        <span class="header_title">제목</span>
+        <span class="txt_count">{{modBmrkNm.value.length}} / 20 자</span>
+      </div>
+
+      <input #modBmrkNm type="text" class="favorite_input" 
+        [(ngModel)]="bmrkTitle" (ngModelChange)="null" maxlength="20">
+
+    </div>
+    <!-- 팝업 컨텐츠 -->
+
+    <div class="pop_btn_wrap">
+      <button type="button" class="btn left confirm" (click)="onClickUpdateBmrk()">저장</button><button type="button" class="btn right" (click)="onClickShowBmrkModPopup(false)">취소</button>
+    </div>
+
+  </div>
+  <!--// 즐겨찾기 수정 팝업 -->
+
+  <div class="black_overlay" [class.dsp_block]="isBlackOverlay"></div>

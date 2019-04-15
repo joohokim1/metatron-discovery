@@ -1,0 +1,6 @@
+<div *ngIf="rightUIType" class="lpm_left_box">
+    <!-- uiType에 따른 컴포넌트 사용 -->
+    <right-default #rightChild *ngIf="rightUIType == 'right-default'" [metaInfo]="metaInfo"></right-default>
+    <right-compare #rightChild *ngIf="rightUIType == 'right-compare'" [metaInfo]="metaInfo"></right-compare>
+</div>
+              

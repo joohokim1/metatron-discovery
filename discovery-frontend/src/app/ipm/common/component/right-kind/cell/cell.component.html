@@ -1,0 +1,135 @@
+<div class="hidden_panel_wrap" [class.dsp_block]="selectedLastNode.isShow">
+
+  <!-- 타이틀 -->
+  <div class="hidden_panel_title">
+    {{selectedLastNode?.name}} ({{comma(detailAllCnt)}})
+    <a href="javascript:;" class="panel_close" (click)="closeDetailBlock()"></a>
+  </div>
+  <!--// 타이틀 -->
+
+  <!-- keyword -->
+  <div class="keyword_sch_box">
+    <input #searchBox type="text" placeholder="장비명, 장비코드검색" class="keyword_input" (keydown.enter)="searchBtn.click()">
+    <a #searchBtn href="javascript:;" class="btn_sch" (click)="searchDetail(searchBox.value)"></a>
+  </div>
+  <!--// keyword -->
+
+  <!-- item pack -->
+  <ul class="data_package">
+    <li>
+      <!-- data group -->
+      <ul class="list_header">
+        <li class="check_box">
+          <!-- 체크시 클래스 추가 'checked' -->
+          <span class="check_txt" [class.checked]="isDetailAllChecked" (click)="checkedAll()">전체선택</span>
+        </li>
+        <li class="info_num float_r">
+          <span class="info_txt">선택 :</span> {{comma(detailCellCheckedCount)}}
+        </li>
+      </ul>
+
+      <ul class="hierarchy_box iscroll">
+        <li *ngFor="let row of searchList" class="item_li">
+          <div class="item_group" (click)="row.isOpen = !row.isOpen">
+            <span class="check_ico" [class.checked]="row.isChecked" (click)="checkedRow($event, row)"></span>
+            <a href="javascript:;" class="item_txt">{{row.name}} ({{row.code}})</a>
+            <span class="ico_arrow" [class.open]="row.isOpen"></span>
+          </div>
+
+          <!-- sub item -->
+          <ul *ngIf="row.cellList" class="hierarchy_sub_box" [class.dsp_block]="row.isOpen">
+            <li *ngFor="let cell of row.cellList" class="sub_item" [class.checked]="cell.isChecked"
+              (click)="checkedCell(row, cell)">{{cell.code}}</li>
+          </ul>
+          <!--// sub item -->
+        </li>
+      </ul>
+      <!--// data group -->
+    </li>
+    <li class="btn_box">
+      <a href="javascript:;" class="btn_item_add" (click)="addCheckData()"></a>
+      <a href="javascript:;" class="btn_item_del" (click)="delCheckData()"></a>
+    </li>
+    <li>
+
+      <div class="hidden_panel_title_bottom">
+        분석대상 ({{comma(finalListCellCount())}})
+      </div>
+
+      <!-- data group -->
+      <ul class="list_header">
+        <li class="check_box">
+          <!-- 체크시 클래스 추가 'checked' -->
+          <span class="check_txt" [class.checked]="isFinalAllChecked" (click)="checkedAllFinal()">전체선택</span>
+        </li>
+        <li class="info_num">
+          <span class="info_txt">선택 :</span> {{comma(finalCheckedCount)}}
+        </li>
+        <li class="info_num txt_link">
+          <a href="javascript:;" class="batches_popup" (click)="openCellPopup()">Cell 일괄선택</a>
+        </li>
+      </ul>
+
+      <ul class="hierarchy_box iscroll">
+        <li *ngFor="let row of finalList" class="item_li">
+          <div class="item_group" (click)="row.isOpen = !row.isOpen">
+            <span class="check_ico" [class.checked]="row.isChecked" (click)="checkedRowFinal($event, row)"></span>
+            <a href="javascript:;" class="item_txt">{{row.name}} ({{row.code}})</a>
+            <span class="ico_arrow" [class.open]="row.isOpen"></span>
+          </div>
+
+          <!-- sub item -->
+          <ul *ngIf="row.cellList" class="hierarchy_sub_box" [class.dsp_block]="row.isOpen">
+            <li *ngFor="let cell of row.cellList" class="sub_item" [class.checked]="cell.isChecked"
+              (click)="checkedCellFinal(row, cell)">{{cell.code}}</li>
+          </ul>
+          <!--// sub item -->
+        </li>
+      </ul>
+
+      <!--// data group -->
+    </li>
+  </ul>
+  <!--// item pack -->
+
+</div>
+
+<!-- Cell 일괄선택 -->
+<div class="popup_wrap cell_batches" [class.dsp_block]="isCellDspBlock">
+
+  <div class="popup_head">
+    <h2>Cell No 일괄 선택</h2>
+    <a href="javascript:;" id="close_cell_batches" (click)="closeCellPopup()"></a>
+  </div>
+
+  <!-- 팝업 컨텐츠 -->
+  <div class="popup_contents">
+
+    <p class="info_txt">
+      다수의 eNB 장비에 매핑된 Cell No를 일괄로 선택할 때 사용합니다.<br />
+      만약 선택한 Cell No와 다른 번호가 이미 선택된 목록에 있다면 모두 초기화되고 선택한 No로 일괄 적용합니다.
+    </p>
+
+    <div class="chk_box">
+      <span class="check_txt" [class.checked]="isPopupCellChecked" (click)="checkedPopupCell()">전체선택</span>
+    </div>
+
+    <!-- cell number -->
+    <ul class="cell_num_wrap">
+      <li *ngFor="let no of popupCellList">
+        <span class="check_txt" [class.checked]="no.isChecked"
+          (click)="no.isChecked = !no.isChecked">{{lpad(no.code, 2, 0)}}</span>
+      </li>
+    </ul>
+    <!-- cell number -->
+
+  </div>
+  <!-- 팝업 컨텐츠 -->
+
+  <div class="pop_btn_wrap">
+    <button type="button" class="btn left confirm" (click)="selectCellPopup()">선택</button><button type="button" class="btn right" (click)="closeCellPopup()">닫기</button>
+  </div>
+
+</div>
+<div class="black_overlay" [class.dsp_block]="isCellDspBlock"></div>
+<!-- Cell 일괄선택 -->

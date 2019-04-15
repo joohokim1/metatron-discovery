@@ -1,0 +1,6 @@
+<div *ngIf="centerUIType" class="lpm_center_box">
+    <!-- uiType에 따른 컴포넌트 사용 -->
+    <center-default #centerChild *ngIf="centerUIType == 'center-default'"></center-default>
+    <center-compare #centerChild *ngIf="centerUIType == 'center-compare'"></center-compare>
+</div>
+      

@@ -1,0 +1,23 @@
+<!-- datepicker -->
+<div class="range_group">
+  <p class="range_title">
+    기간설정
+    <button type="button" class="btn_add" (click)="addDate()">
+      <span class="ico_plus_small">추가</span>
+    </button>
+  </p>
+
+  <div class="date_picker_wrap none_time calendar" *ngFor="let item of dateList; let i = index">
+    <div class="date_input_box ico_calendar calendar">
+      <input type="text" class="date_num" (blur)="selectDate($event, item, 0)" [value]="item.formatDateRange[0] || ''" (change)="changeInputDate($event, i, 0)">
+    </div>
+    <div class="date_input_box ico_calendar_r calendar">
+      <input type="text" class="date_num" (blur)="selectDate($event, item, 1)" [value]="item.formatDateRange[1] || ''" (change)="changeInputDate($event, i, 1)">
+    </div>
+    <div class="btn_del_wrap">
+      <button type="button" class="btn_del" (click)="deleteDate(i)">delete</button>
+    </div>
+  </div>
+
+</div>
+<!-- datepicker -->

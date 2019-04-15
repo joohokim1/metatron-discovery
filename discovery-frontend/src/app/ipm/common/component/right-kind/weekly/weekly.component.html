@@ -1,0 +1,13 @@
+<div class="range_group">
+  <p class="range_title">요일을 선택하세요.(중복 선택이 가능합니다.)</p>
+
+  <!-- weekly check -->
+  <div class="weekly_chk_box">
+    <a *ngFor="let item of fltrVal" href="javascript:;" class="chk_day" 
+    [class.on]="item.on" (click)="item.on ? item.on = false : item.on = true">
+    {{item.name}}
+    </a>
+  </div>
+  <!--// weekly check -->
+
+</div>

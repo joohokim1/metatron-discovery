@@ -1,0 +1,61 @@
+<!-- select option -->
+<div class="select_opt_box">
+  <span *ngFor="let item of selectShowData; let index = index" class="zip_code">{{item}} 
+    <a href="javascript:;" class="zip_del" (click)="removeAddress(index)">X</a>
+  </span>
+  <!-- <span class="zip_code">부산시 <a href="javascript:;" class="zip_del">X</a></span> -->
+</div>
+<!--// select option -->
+
+<!-- adress select -->
+<div class="location_box">
+
+  <div class="local_title_box">
+    <!-- 활성화 시 클래스 'selected'추가 -->
+    <span class="local_title selected">시도</span>
+    <!-- 활성화 시 클래스 'on'추가 -->
+    <span class="ico_divide" [class.on]="isSidoSelect">divide</span>
+    <span class="local_title">시군구</span>
+    <span class="ico_divide" [class.on]="isSggSelect">divide</span>
+    <span class="local_title">읍면동</span>
+  </div>
+
+  <!-- local_list -->
+  <ul class="local_list_block">
+    <li class="list_box iscroll">
+      <!-- city list -->
+      <div *ngFor="let item of sidoData" class="item_row" [class.selected]="item.show">
+        <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectSido($event)"></div>
+        <div class="item_adress" [attr.code]="item.code" (click)="showSsg($event)">{{item.name}}</div>
+      </div>
+    </li>
+    <li class="list_box iscroll">
+      
+      <!-- district -->
+      <div *ngFor="let item of sggData" class="item_row" [class.selected]="item.show">
+        <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectSgg($event)"></div>
+        <div class="item_adress" [attr.code]="item.code" (click)="showAmd($event)">{{item.name}}</div>
+      </div>
+      <div *ngIf="!sggData.length" class="none_data">
+          시도를 먼저<br />
+          선택하세요.
+      </div>
+      <!--// district -->
+    </li>
+    <li class="list_box iscroll">
+      <!-- town list -->
+      <div *ngFor="let item of amdData" class="item_row">
+        <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectAmd($event)"></div>
+        <div class="item_adress" [attr.code]="item.code">{{item.name}}</div>
+      </div>
+      <div *ngIf="!amdData.length" class="none_data">
+          시군구를 먼저<br />
+          선택하세요.
+      </div>
+      <!--// town list -->
+    </li>
+  </ul>
+  <!--// local_list -->
+
+</div>
+<!-- adress select -->
