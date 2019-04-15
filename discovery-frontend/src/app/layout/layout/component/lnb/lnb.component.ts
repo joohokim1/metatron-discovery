@@ -100,6 +100,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
       metadata: { fold:true },
       dataStorage: { fold: true },
       dataPreparation: { fold: true },
+      ipm: { fold: true },
       dataMonitoring: { fold: true },
       modelManager: { fold: true }
     },
@@ -169,6 +170,10 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
           case '/management/datapreparation/datasnapshot' :
             this.depth1Menu1ClickListener('MANAGEMENT');
             this.mgmtMenuClickListener('DATAPREPARATION');
+            break;
+          case '/management/ipm/profile' :
+            this.depth1Menu1ClickListener('MANAGEMENT');
+            this.mgmtMenuClickListener('IPM');
             break;
           case '/management/model/notebook' :
             this.depth1Menu1ClickListener('MANAGEMENT');
@@ -302,6 +307,7 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
     this.lnbManager.management.metadata.fold = true;
     this.lnbManager.management.dataStorage.fold = true;
     this.lnbManager.management.dataPreparation.fold = true;
+    this.lnbManager.management.ipm.fold = true;
     this.lnbManager.management.dataMonitoring.fold = true;
     this.lnbManager.management.modelManager.fold = true;
     this.getManagementExtensions.forEach( item => {
@@ -317,6 +323,9 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
         break;
       case 'DATAPREPARATION' :
         this.lnbManager.management.dataPreparation.fold = false;
+        break;
+      case 'IPM' :
+        this.lnbManager.management.ipm.fold = false;
         break;
       case 'DATAMONITORING' :
         this.lnbManager.management.dataMonitoring.fold = false;
