@@ -178,6 +178,17 @@
                 </li>
               </ul>
             </li>
+            <li *ngIf="permission.managementDatasource" [ngClass]="{'ddp-selected': lnbManager.management.ipm.fold == false}">
+              <a href="javascript:" (click)="mgmtMenuClickListener('IPM')">
+                <em class="ddp-icon-dot"></em>
+                IPM
+              </a>
+              <ul class="ddp-list-sublnb-2depth">
+                <li>
+                  <a href="javascript:" (click)="move('management/ipm/profile')">IPM</a>
+                </li>
+              </ul>
+            </li>
             <li *ngIf="permission.managementDatasource" [ngClass]="{'ddp-selected': lnbManager.management.modelManager.fold == false}">
               <a href="javascript:" (click)="mgmtMenuClickListener('MODELMANAGER')">
                 <em class="ddp-icon-dot"></em>
