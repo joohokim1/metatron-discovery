@@ -1,0 +1,20 @@
+<div class="range_group">
+	<p class="range_title">범위를 선택하세요.</p>
+	<div class="slider_box cei" *ngFor="let slider of sliderList; let i=index">
+		<ul class="range_legend cei">
+			<li class="per_0">0</li>
+			<!-- <li class="per_70">70</li>
+			<li class="per_75">75</li> -->
+			<li class="per_80">80</li>
+			<!-- <li class="per_85">85</li>
+			<li class="per_90">90</li>
+			<li class="per_95">95</li> -->
+			<li class="per_100">100</li>
+		</ul>
+
+		<div class="range_slider_box cei">
+			<nouislider [connect]="true" [min]="slider.min" [max]="slider.max" [step]="step" [(ngModel)]="slider.range" (ngModelChange)="onChangeSlider($event, slider)"></nouislider>
+		</div>
+	</div>
+</div>
+

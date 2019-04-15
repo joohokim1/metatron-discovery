@@ -1,0 +1,49 @@
+<div class="favorite_box">
+  <p class="title_favorite">등록된 필터</p>
+
+    <!-- 키워드 -->
+    <div *ngIf="bmrkData.length" class="favorite_word_box iscroll">
+      <span *ngFor="let item of bmrkData" class="keyword" (click)="showBmrkFilter(item)">
+        {{item.bmrkNm}}
+        <a href="javascript:;" class="btn_del" (click)="bmrkUid = item.bmrkUid; $event.stopPropagation()">delete</a>
+      </span>
+    </div>
+    <div *ngIf="!bmrkData.length" class="favorite_nodata">
+
+      등록된 필터가 없습니다.<br />
+      자주쓰는 필터를 추가해보세요.
+      
+    </div>
+    <!--// 키워드 -->
+
+  <!-- Height Slider -->
+  <div class="h_slider">SLIDER</div>
+  <!--// Height Slider -->
+
+</div>
+
+<!-- 즐겨찾기 삭제 팝업 -->
+<div class="popup_wrap favorite_del" [class.dsp_block]="bmrkUid">
+
+  <div class="popup_head">
+    <h2>필터 삭제</h2>
+    <a href="javascript:;" (click)="bmrkUid=''"></a>
+  </div>
+
+  <!-- 팝업 컨텐츠 -->
+  <div class="popup_contents">
+
+    <div class="pop_alert_txt">
+      선택한 필터를 정말 삭제하시겠습니까?
+    </div>
+
+  </div>
+  <!-- 팝업 컨텐츠 -->
+
+  <div class="pop_btn_wrap">
+    <button type="button" class="btn left confirm" (click)="deleteBmrk()">삭제</button><button type="button" class="btn right" (click)="bmrkUid = ''">취소</button>
+  </div>
+
+</div>
+<div class="black_overlay" [class.dsp_block]="bmrkUid"></div>
+<!--// 즐겨찾기 삭제 팝업 -->

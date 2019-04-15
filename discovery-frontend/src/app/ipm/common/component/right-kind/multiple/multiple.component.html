@@ -1,0 +1,13 @@
+<div class="range_group">
+  <p class="range_title">중복 선택이 가능합니다.</p>
+
+  <!-- check group -->
+  <div class="check_group">
+    <a *ngFor="let item of fltrVal" href="javascript:;" class="check_item" 
+    [class.checked]="item.checked" (click)="item.checked ? item.checked = false : item.checked = true">
+    {{item.name}}
+    </a>
+  </div>
+  <!--// check group -->
+
+</div>

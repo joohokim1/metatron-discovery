@@ -1,0 +1,61 @@
+<div class="headquarters">
+  <label class="custom-select Width-100">
+    <select #org class="org" (change)="changeDpt()" [(ngModel)]="selectVal">
+      <option value="SKT">SKT 본부</option>
+      <option value="ONS">O&amp;S 본부</option>
+    </select>
+  </label>
+</div>
+
+<!-- tree box -->
+<div class="headquarters_tree_box iscroll mt_15">
+
+  <ul class="tree_root">
+    <li class="tree_item">
+      <span class="tree_ico" [class.open]="isAllOn" (click)="isAllOn = !isAllOn"></span>
+      <a href="javascript:;" [class.on]="isAllOn " (click)="isAllOn = !isAllOn">전체 
+        <ng-container *ngIf="menuDetailData.allCnt != 0">({{comma(menuDetailData.allCnt)}})</ng-container>
+      </a>
+
+      <!-- 1Depth -->
+      <ul class="tree_inner" [hidden]="!isAllOn">
+        <li class="tree_item" *ngFor="let depth1 of nodeList; let l1 = last" [class.last]="l1">
+          <span class="tree_ico" [class.open]="depth1.isOn" (click)="click1Depth(depth1)"></span>
+          <a href="javascript:;" [class.on]="depth1.isOn" [class.selected]="depth1.isSelected"
+            [class.last]="l1" (click)="clickLastDepth(depth1, 1)">{{depth1.name}}
+            <ng-container *ngIf="depth1.value">({{comma(depth1.value)}})</ng-container>
+          </a>
+          
+          <!-- 2Depth -->
+          <ul class="tree_inner left_space" [hidden]="!depth1.isOn || !depth1.nodeList.length">  
+            <li class="tree_item" *ngFor="let depth2 of depth1.nodeList; let l2 = last" [class.last]="l2">
+              <span *ngIf="depth2.leaf === 'N'" class="tree_ico" [class.open]="depth2.isOn" (click)="click2Depth(depth2)"></span>
+
+              <!-- leaf 이 Y일 경우와 N일 경우 -->
+              <a href="javascript:;" [class.on]="depth2.isOn" [class.selected]="depth2.isSelected" 
+                [class.last]="l2" (click)="clickLastDepth(depth2, 2)">{{depth2.name}}
+                <ng-container *ngIf="depth1.value">({{comma(depth2.value)}})</ng-container>
+              </a>
+
+                <!-- 3Depth -->
+                <ul class="tree_inner left_space" [hidden]="!depth2.isOn || !depth2.nodeList.length">
+                  <li class="tree_item" *ngFor="let depth3 of depth2.nodeList; let l3 = last" [class.last]="l3">
+                    
+                    <a href="javascript:;" class="last_item" [class.selected]="depth3.isSelected"
+                      [class.last]="l3" (click)="clickLastDepth(depth3, 3)">{{depth3.name}}
+                      <ng-container *ngIf="depth1.value">({{comma(depth3.value)}})</ng-container>
+                    </a>
+                  </li>
+                </ul>
+
+            </li>
+          </ul>
+
+        </li>
+      </ul>
+
+    </li>
+  </ul>
+
+</div>
+<!--// tree box -->

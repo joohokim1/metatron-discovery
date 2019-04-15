@@ -1,0 +1,189 @@
+<div class="right_kind_box pb_10">
+
+    <p class="title adress">행정구역 <span class="guide_txt">?</span></p>
+    
+    <!-- adress select -->
+    <div class="location_box mt_10">
+
+        <div class="local_title_box">
+            <!-- 활성화 시 클래스 'selected'추가 -->
+            <span class="local_title selected">시도</span>
+            <!-- 활성화 시 클래스 'on'추가 -->
+            <span class="ico_divide" [class.on]="isSidoSelect">divide</span>
+            <span class="local_title">시군구</span>
+            <span class="ico_divide" [class.on]="isSggSelect">divide</span>
+            <span class="local_title">읍면동</span>
+        </div>
+
+        <!-- local_list -->
+        <ul class="local_list_block">
+            <li class="list_box iscroll">
+            <!-- city list -->
+            <div *ngFor="let item of sidoData" class="item_row" [class.selected]="item.show">
+                <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectSido($event)"></div>
+                <div class="item_adress" [attr.code]="item.code" (click)="showSsg($event)">{{item.name}}</div>
+            </div>
+            </li>
+            <li class="list_box iscroll">
+            
+            <!-- district -->
+            <ng-container *ngFor="let item of sggData">
+                <div *ngIf="item.name.length > 1" class="item_row" [class.selected]="item.show">
+                <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectSgg($event)"></div>
+                <div class="item_adress" [attr.code]="item.code" (click)="showAmd($event)">{{item.name}}</div>
+                </div>
+                <div *ngIf="!(item.name.length > 1) && !(item.length > 1)" class="none_data">
+                시군구가<br />
+                존재하지 않습니다.
+                </div>
+            </ng-container>
+            <div *ngIf="!sggData.length" class="none_data">
+                시도를 먼저<br />
+                선택하세요.
+            </div>
+            <!--// district -->
+            </li>
+            <li class="list_box iscroll">
+            <!-- town list -->
+            <div *ngFor="let item of amdData" class="item_row">
+                <div class="item_check" [attr.code]="item.code" [attr.name]="item.name" (click)="selectAmd($event)"></div>
+                <div class="item_adress" [attr.code]="item.code">{{item.name}}</div>
+            </div>
+            <div *ngIf="!amdData.length" class="none_data">
+                시구군을 먼저<br />
+                선택하세요.
+            </div>
+            <!--// town list -->
+            </li>
+        </ul>
+        <!--// local_list -->
+
+    </div>
+    <!-- adress select -->
+
+</div>
+<!--// 행정구역 -->
+
+
+<!-- 데이터소스 -->
+<div class="right_kind_box pb_10">
+
+    <p class="title adress">
+        데이터소스 <span class="guide_txt">?</span>
+    </p>
+
+    <div class="range_group mt_10">
+        <div class="mt_10">
+            <span class="mr_10">비교군</span>
+            <label class="custom-select Width-50">
+                <select (change)="onChangeLayrGrp($event.target.value, false)">
+                    <option [value]="item.layrGrpId" *ngFor="let item of layrGrpList" ([ngModel])="layrGrpId">{{item.layrGrpNm}}</option>
+                </select>
+            </label>
+            <label class="custom-select Width-30" *ngIf="visibleVenders">
+                <select (change)="setVenderId($event.target.value, false)">
+                    <option [value]="item.venderId" *ngFor="let item of venderList" ([ngMdoel])="venderId" [selected]="item.venderId==venderId">{{item.venderName}}</option>
+                </select>
+            </label>
+        </div>
+        <div class="mt_10">
+            <span class="mr_10">대조군</span>
+            <label class="custom-select Width-50">
+                <select (change)="onChangeLayrGrp($event.target.value, true)">
+                    <option [value]="item.layrGrpId" *ngFor="let item of layrGrpList" ([ngModel])="comLayrGrpId">{{item.layrGrpNm}}</option>
+                </select>
+            </label>
+            <label class="custom-select Width-30" *ngIf="visibleComVenders">
+                <select (change)="setVenderId($event.target.value, true)">
+                    <option [value]="item.venderId" *ngFor="let item of venderList" ([ngMdoel])="compVenderId" [selected]="item.venderId==compVenderId">{{item.venderName}}</option>
+                </select>
+            </label>
+        </div>
+    </div>
+
+</div>
+<!--// 데이터소스 -->
+
+
+<!-- 연월일시 -->
+<!-- 특정시간비교 -->
+<div class="right_kind_box ">
+
+    <p class="title adress">
+        연월일시
+        <span class="guide_txt">?</span>
+    </p>
+
+    <!-- datepicker -->
+    <div class="range_group">
+        <div class="mt_10">비교군</div>
+        <div class="date_picker_wrap">
+            <div class="date_input_box ico_calendar">
+                <input type="text" id="input-datetime-start" class="date_num">
+
+                <div class="date_time_wrap">
+                    <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                        <select (change)="onChangeHour(true, $event.target.value);" [attr.disabled]="usedHour === true ? true : null">
+                            <option [value]="hour" *ngFor="let hour of hourList" [attr.selected]="hour==startSelectedHour ? true : null">{{hour}}</option>
+                        </select>
+                    </label>
+                </div>
+                
+            </div>
+            <div class="date_input_box ico_calendar_r">
+                <input type="text" id="input-datetime-end" class="date_num">
+                
+                <div class="date_time_wrap">
+                    <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                        <select (change)="onChangeHour(false, $event.target.value);" [attr.disabled]="usedHour === true ? true : null">
+                            <option [value]="hour" *ngFor="let hour of hourList" [attr.selected]="hour==endSelectedHour ? true : null">{{hour}}</option>
+                        </select>
+                    </label>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="clear_wrap mt_10">
+            <div class="float_l">대조군</div>
+            <div class="float_r chk_box checkbox holiday">
+                <input type="checkbox" name="skt_holiday" id="skt_holiday" [checked]="isChecked" (click)="checkEqual($event);">
+                <label for="skt_holiday"><span>위와 동일</span></label>
+            </div>
+        </div>
+        <div class="date_picker_wrap">
+            <div class="date_input_box ico_calendar">
+                <input type="text" id="check-input-datetime-start" class="date_num">
+                
+                <div class="date_time_wrap">
+                    <label class="custom-select time_select" [style.pointer-events]="compUsedHour === true ? 'none' : ''" [attr.disabled]="compUsedHour === true ? true : null">
+                        <select (change)="onCompChangeHour(true, $event.target.value);" [attr.disabled]="compUsedHour === true ? true : null">
+                            <option [value]="hour" *ngFor="let hour of compHourList" [attr.selected]="hour==compStartSelectedHour ? true : null">{{hour}}</option>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
+            <div class="date_input_box ico_calendar_r">
+                <input type="text" id="check-input-datetime-end" class="date_num">
+
+                <div class="date_time_wrap">
+                    <label class="custom-select time_select" [style.pointer-events]="compUsedHour === true ? 'none' : ''" [attr.disabled]="compUsedHour === true ? true : null">
+                        <select (change)="onCompChangeHour(false, $event.target.value);" [attr.disabled]="compUsedHour === true ? true : null">
+                            <option [value]="hour" *ngFor="let hour of compHourList" [attr.selected]="hour==compEndSelectedHour ? true : null">{{hour}}</option>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!--// datepicker -->
+
+</div>
+
+<button type="button" class="btn_done mt_10" (click)="submitRightKind(null, true, null)">
+    <span class="ico_search">완료</span>
+</button>

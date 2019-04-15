@@ -1,0 +1,309 @@
+<div class="wrap">
+		
+  <div class="int_visual"></div>
+  <div class="int_logo"></div>
+  <div class="int_title"><strong>방대한 데이터</strong>에서 Insight 찾기가 어려우셨나요?<br/><strong>IDCube Profile에서 보다 쉽게 데이터</strong>를 추출해보세요.</div>
+  <ul class="int_text">
+    <li class="text_01">Infra 센터의 Profiling된 데이터 제공</li>
+    <li class="text_02">Click 만으로도 검색</li>
+    <li class="text_03">손쉬운 Filter 설정 및 즐겨찾기 기능</li>
+    <li class="text_04">공통화된 Chart 제공</li>
+    <li class="text_05">한 눈에 확인 가능한 지도 서비스</li>
+    <li class="text_06">결과 Download 기능</li>
+  </ul>
+  <div class="tutorial_btn">
+    
+    <div class="text_tutorial">제반 문의사항은 IDCube의 “IDCube/분석툴 문의 요청” 게시판을 활용해 주세요.</div>
+  </div>
+  <div class="int_text_bg"></div>
+
+
+  <div class="int_bottom_wrap">
+    <div class="mt_60"><a href="javascript:;" class="ico_tutorial" (click)="scrollTo()">Tutorial 보기</a></div>
+    <ul class="int_tab">
+      <li class="epm" [class.on]="mainData[1].isOn" (click)="checkIpm(1)">장비</li>
+      <li class="lpm" [class.on]="mainData[2].isOn" (click)="checkIpm(2)">위치</li>
+      <li class="icpm" [class.on]="mainData[0].isOn" (click)="checkIpm(0)">고객</li>
+      <!-- <li class="icpm" [class.on]="mainData[0].isOn" (click)="checkIpm(0)">고객</li>
+      <li class="epm" [class.on]="mainData[1].isOn" (click)="checkIpm(1)">장비</li>
+      <li class="lpm" [class.on]="mainData[2].isOn" (click)="checkIpm(2)">위치</li> -->
+    </ul>
+
+    <div *ngIf="mainData[0].isOn" class="int_imac icpm">
+      
+      <div *ngIf="mainData[0].step == '00'" class="ttr icpm_img_00">
+        <div class="ttr_title">Tutorial 시나리오 : 품질 저조 고객을 추출하고자 할 때</div>
+        <div class="ttr_play" (click)="mainData[0].step = '01'"></div>
+      </div>
+      <div *ngIf="mainData[0].step == '01'" class="ttr icpm_img_01">
+        <div class="info">
+          <p>"<strong>고객</strong>" 분야를 클릭</p>
+          <p class="mt_10">
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '00'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '02'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[0].step == '02'" class="ttr icpm_img_02">
+        <div class="info">
+          <p>왼쪽 "<strong>고객 품질</strong>" Category 내 "<strong>HDV CEI</strong>"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '01'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '03'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[0].step == '03'" class="ttr icpm_img_03">
+        <div class="info right">
+          <p>필터링 조건에서 CEI를 계산할<br/><strong>기간과 임계치</strong>를 선택 후  필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '02'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '04'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[0].step == '04'" class="ttr icpm_img_04">
+        <div class="info">
+          <p>왼쪽 "<strong>고객 성향</strong>" Category 내 "<strong>VoC Score</strong>"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '03'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '05'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[0].step == '05'" class="ttr icpm_img_05">
+        <div class="info right">
+          <p>필터링 조건에서 Voc Score를 계산할<br/><strong>기간과 임계치</strong>를 선택 후  필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '04'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '06'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[0].step == '06'" class="ttr icpm_img_06">
+        <div class="info end">
+          <p>다른 탐색을 위해 <strong>필터링 조건</strong> 추가</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[0].step = '05'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[0].step = '00'">완료</a>
+          </p>
+        </div>
+      </div>
+      
+      <div *ngIf="mainData[0].step != '00'" class="stop" (click)="mainData[0].step = '00'">Tutorial 처음으로</div>
+    </div>
+
+    <!-- epm -->
+    <div *ngIf="mainData[1].isOn" class="int_imac epm">
+               
+      <div *ngIf="mainData[1].step == '00'" class="ttr epm00">
+        <div class="ttr_title">Tutorial 시나리오 : HDV 품질 저조 및 동시 접속자 많은 장비를 추출하고자 할때</div>
+        <div class="ttr_play" (click)="mainData[1].step = '01'"></div>
+      </div>
+      <div *ngIf="mainData[1].step == '01'" class="ttr epm01">
+        <div class="info">
+        <p>"장비" 분야를 클릭</p>
+        <p>
+          <a href="javascript:;" class="pre" (click)="mainData[1].step = '00'">이전</a>
+          <a href="javascript:;" class="next" (click)="mainData[1].step = '02'">다음</a>
+        </p>
+      </div>
+      </div>
+      <div *ngIf="mainData[1].step == '02'" class="ttr epm02">
+        <div class="info">
+          <p>"eNB","삼성" 선택</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '01'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '03'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '03'" class="ttr epm03">
+        <div class="info">
+          <p>왼쪽 "분석기간" Category 내 "연월일시"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '02'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '04'">다음</a>
+          </p>
+        </div>
+      </div>
+      
+      <div *ngIf="mainData[1].step == '04'" class="ttr epm04">
+        <div class="info right">
+          <p>필터링 조건에서 연월일시를 어제 날짜를 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '03'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '05'">다음</a>
+          </p>
+        </div>
+      </div>
+      
+      <div *ngIf="mainData[1].step == '05'" class="ttr epm05">
+        <div class="info bottom">
+          <p>필터를 적용하기 위해 "선택된 조건 필터 적용" 버튼을 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '04'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '06'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '06'" class="ttr epm06">
+        <div class="info">
+          <p>왼쪽 "CEI" Category 내 "HDVoice CEI점수"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '05'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '07'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '07'" class="ttr epm07">
+        <div class="info right">
+          <p>필터링 조건에서 HDV CEI 90점 이하 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '06'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '08'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '08'" class="ttr epm08">
+        <div class="info ">
+          <p>왼쪽 "성능(삼성)" Category 내 "호처리RCC"내, "동시접속자수(Avg)"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '07'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '09'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '09'" class="ttr epm09">
+        <div class="info right">
+          <p>필터링 조건에서 동시접속자수(Avg) 값을 100명 이상 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '08'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '10'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step == '10'" class="ttr epm10">
+        <div class="info end">
+          <p>다른 탐색을 위해 필터링 조건 추가</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[1].step = '09'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[1].step = '00'">완료</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[1].step != '00'" class="stop" (click)="mainData[1].step = '00'">Tutorial 처음으로</div>
+    </div>
+    <!--// epm -->
+    
+  <!-- lpm -->
+  <div *ngIf="mainData[2].isOn" class="int_imac lpm">
+      
+      <div *ngIf="mainData[2].step == '00'" class="ttr lpm00">
+        <div class="ttr_title">Tutorial 시나리오 : 을지로2가에서 CEI 96점 이상의 20대 유동인구는?</div>
+        <div class="ttr_play" (click)="mainData[2].step = '01'"></div>
+      </div>
+      <div *ngIf="mainData[2].step == '01'" class="ttr lpm01">
+        <div class="info">
+          <p>"위치" 분야를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '00'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '02'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '02'" class="ttr lpm02">
+        <div class="info">
+          <p>왼쪽 "분석범위" Category 내 "연월일시"를 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '01'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '03'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '03'" class="ttr lpm03">
+        <div class="info right">
+          <p>필터링 조건에서 연월일시를<br/>2018-11-28 09시 ~ 2018-11-28 10시로 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '02'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '04'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '04'" class="ttr lpm04">
+        <div class="info bottom">
+          <p>필터를 적용하기 위해 "선택된 조건 필터 적용" 버튼을 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '03'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '05'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '05'" class="ttr lpm05">
+        <div class="info">
+          <p>왼쪽 "지역" Category 내 "행정구역"을 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '04'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '06'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '06'" class="ttr lpm06">
+        <div class="info right">
+          <p>필터링 조건에서 행정구역을 "을지로 2가"로 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '05'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '07'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '07'" class="ttr lpm07">
+        <div class="info">
+          <p>왼쪽 "CEI" Category 내 "CEI"을 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '06'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '08'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '08'" class="ttr lpm08">
+        <div class="info right">
+          <p>필터링 조건에서 CEI를 95점 ~ 100점 으로 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '07'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '09'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '09'" class="ttr lpm09">
+        <div class="info">
+          <p>왼쪽 "고객기준" Category 내 "연령"을 클릭</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '08'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '10'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '10'" class="ttr lpm10">
+        <div class="info right">
+          <p>필터링 조건에서 연령을 20 ~ 80 으로 선택 후 필터 적용</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '09'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '11'">다음</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step == '11'" class="ttr lpm11">
+        <div class="info end">
+          <p>다른 탐색을 위해 필터링 조건 추가</p>
+          <p>
+            <a href="javascript:;" class="pre" (click)="mainData[2].step = '10'">이전</a>
+            <a href="javascript:;" class="next" (click)="mainData[2].step = '00'">완료</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="mainData[2].step != '00'" class="stop" (click)="mainData[2].step = '00'">Tutorial 처음으로</div>
+    </div>
+    <!--// lpm -->
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="section_wrap">
+    <div *ngIf="addrNmList.length == 0">
+        <strong>전체</strong>
+    </div>
+
+    <div *ngIf="addrNmList.length == 1">
+        <span class="ico_area"></span>{{addrNmList[0]}}
+        <span class="ico_area_arr"></span>
+        <strong>전체</strong>
+    </div>
+
+    <div *ngIf="addrNmList.length == 2">
+        <span class="ico_area"></span>{{addrNmList[0]}}
+        <span class="ico_area_arr"></span>
+        <span class="ico_area"></span>{{addrNmList[1]}} 
+        <span class="ico_area_arr"></span>
+        <strong>전체</strong>
+    </div>
+
+    <div *ngIf="addrNmList.length == 3">
+        <span class="ico_area"></span>{{addrNmList[0]}}
+        <span class="ico_area_arr"></span>
+        <span class="ico_area"></span>{{addrNmList[1]}} 
+        <span class="ico_area_arr"></span>
+        <strong>{{addrNmList[2]}}</strong>
+    </div>
+
+    <div class="con_block_lpm">
+        <lpm-chart></lpm-chart>
+        <lpm-grid></lpm-grid>
+    </div>
+</div>

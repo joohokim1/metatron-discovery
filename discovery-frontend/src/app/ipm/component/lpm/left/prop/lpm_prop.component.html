@@ -1,0 +1,17 @@
+<div class="building_info">
+	<div class="building_wrap">
+		<h3>
+			{{selFeature.layerAlias}}
+			<span class="close" (click)="onClickClosePropView()"></span>		
+		</h3>
+		<div *ngIf="selFeature.address" class="building_name">
+			<p class="name">SK C&C U Tower</p>
+			<p class="address">경기도 성남시 분당구 성남대로 343번길 9 에스케이유타워</p>
+		</div>
+
+		<div *ngFor="let key of propKeyList;" class="pulation clear_wrap">
+			<p class="name">{{key}}</p>
+			<p class="num">{{selFeature.properties[key]}}</p>
+		</div>
+	</div>
+</div>

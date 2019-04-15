@@ -1,0 +1,61 @@
+<!-- left search -->
+<div class="left_sch_box">
+    <div>
+        <div class="select_data">데이터</div>
+        <label class="custom-select w_130">
+            <select (change)="onChangeLayrGrp($event.target.value)">
+                <option [value]="item.layrGrpId" *ngFor="let item of layrGrpList" ([ngModel])="layrGrpId" [selected]="item.layrGrpId==layrGrpId">
+                    {{item.layrGrpNm}}
+                </option>
+            </select>
+        </label>
+        
+        <div id="select_agency" style="display: none;">
+            <div style="width: 67px; height: 15px; float: left;"></div>
+            <label class="custom-select w_130">
+
+                <select (change)="onChangeLayrAgency($event.target.value)">
+                    <option [value]="item.venderId" *ngFor="let item of venderList" ([ngMdoel])="venderId" [selected]="item.venderId==venderId">
+                        {{item.venderName}}
+                    </option>
+                </select>
+            </label>  
+        </div>     
+    </div>
+
+    <div class="key_word_wrap mt_10">
+        <input type="text" placeholder="search" class="left_search" #inputSearch (keydown.enter)="searchBtn.click()">
+        <a href="javascript:;" #searchBtn class="btn_sch" (click)="onClickSearchMenu(inputSearch.value)"></a>
+    </div>
+
+    <!-- 전체펼치기 -->
+    <div class="toggle_block">
+        <span class="toggle_title">전체펼치기</span>
+
+        <!-- 클릭 시 클래스 'on' -->
+        <div class="toggle_wrap" [class.on]="isCollapseMenus" [class.off]="!isCollapseMenus">
+            <!-- 클릭 시 클래스 'on/off' -->
+            <span id="hands" class="handle" (click)="onClickCollapseMenus()" [class.on]="isCollapseMenus" [class.off]="!isCollapseMenus">handle</span>
+        </div>
+
+    </div>
+    <!--// 전체펼치기 -->
+</div>
+<!--// left search -->
+
+<!-- LNB Blcok -->
+<ul class="depth_01">
+    <li *ngFor="let item of menuList" class="depth_01_menu">
+        <a href="javascript:;" class="depth_01_item ico_arrow" [class.open]="item.collapse" (click)="onClickCollpaseMenu(item)">
+            {{item.scrnNm}}
+            <span class="item_count">{{item.fltrListCnt}}</span>
+        </a>
+
+        <ul *ngIf="item.leafYn === 'N'" class="depth_02 iscroll" [hidden]="!item.collapse" data-mcs-theme="minimal-dark">
+            <li *ngFor="let subMenu of item.fltrList" class="depth_02_menu">
+                <a href="javascript:;" class="depth_02_item" [attr.fieldNm]="subMenu.fltrNm" [attr.scrnClNm]="subMenu.scrnClNm" [class.required]="subMenu.fltrDelYn=='N' " (click)=onClickSubMenuRow($event);>{{subMenu.scrnNm}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!--// LNB Blcok -->

@@ -1,0 +1,13 @@
+<ul class="small_title_group">
+  <li class="time_select_title">분석 시간대</li>
+  <li class="btn_group">
+    <button type="button" class="btn_select selected all" [attr.all]="isAllYn" (click)="checkAllAnalysisTime()">전체</button>
+    <button type="button" class="btn_select exception" (click)="removeLimitAnalysisTime()">최한시 제외</button>
+  </li>
+</ul>
+
+<!-- weekly check -->
+<div class="analysis_time">
+  <a #analysisTime *ngFor="let item of analysisTime; let i = i" href="javascript:;" class="chk_time" [class.on]="item.check == 'Y'" (click)="checkAnalysisTime(item)">{{item.time}}</a>
+</div>
+<!--// weekly check -->

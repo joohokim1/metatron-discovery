@@ -1,0 +1,131 @@
+
+
+<!-- center content start -->
+<div class="map_wrap">
+
+    <div *ngIf="isLoading">
+        <div class="ico_loading"></div>
+        <div class="loading_dom"></div>
+    </div>
+
+    <ul class="legend_wrap">
+        <li class="btn_extend" [class.on]="isOpenLegend==false" (click)="onClickShowLegend()"></li>
+        <li [class.dsp_none]="isOpenLegend==false" *ngFor="let layerName of objectKeys(layerLegends); let i = index">
+            <h3 [attr.class]="'title i0' + (i+1)">{{layerName}}</h3>
+            <div class="ico_legend" *ngFor="let legend of layerLegends[layerName]">
+                 <span [style.background]="legend.color"></span>  {{legend.value}}
+            </div>
+        </li>
+    </ul>
+
+    <div class="map_size_btn"></div>
+
+    <ul class="map_view_wrap">
+        <li class="area" id="area" [class.on]="isOpenAreaLayer" (click)="onClickEtcLayer($event)">행정경계</li>
+        <li class="equipment" id="equip" [class.on]="isOpenEquipLayer" (click)="onClickEtcLayer($event)">장비</li>
+        <li class="building" id="building" [class.on]="isOpenBuildingLayer" (click)="onClickEtcLayer($event)">건물</li>
+    </ul>
+
+    <!-- 투명도 -->
+    <div class="map_opacity_wrap">
+        <!-- Slider -->
+        <div class="range_slider_box">
+            <nouislider [connect]="true" 
+                        [min]="eventCtrl.sliderMin" 
+                        [max]="eventCtrl.sliderMax" 
+                        [step]="eventCtrl.sliderStep" 
+                        [(ngModel)]="eventCtrl.sliderModel" 
+                        (ngModelChange)="eventCtrl.onChangeSlider($event, 'slider')"></nouislider>                                
+        </div>
+        <!--// Slider -->
+    </div>
+    <!--// 투명도 -->
+
+    <div class="map_contants">
+       
+        <div *ngIf="isFeatureSelect" class="building_select" [style.top]="selPopupLoc.ptTop" [style.left]="selPopupLoc.ptLeft">
+            <h3>선택</h3>
+            <ul class="building_list iscroll">
+                <li *ngFor="let feature of selFeatureList" (mouseover)="onMouseOverFeatures(feature)" (click)="onClickFeatureSelect($event, feature)">
+                    <a href="#none">{{feature.name}}</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="layer_block">
+                <h1 [class.on]="eventCtrl.isOpenLayerList" (click)="eventCtrl.onClickViewCtrlLyrList()"><span class="ico_layer">&nbsp;</span>레이어</h1>
+
+                <ul class="layer_sub" [class.on]="eventCtrl.isOpenLayerList">
+                    <li *ngFor="let mapViewLayer of mapViewLayerList">
+                        <div class="chk_box checkbox lpm_layer">
+                            <input type="checkbox" [checked]="mapViewLayer.visible" [name]="mapViewLayer.name" [id]="mapViewLayer.layrGrpId" (click)="onLayerChecked($event, mapViewLayer);">
+                            <label [for]="mapViewLayer.layrGrpId"><span>{{mapViewLayer.alias}}</span></label>
+                        </div>
+    
+                        <div class="map_view_sett">
+                            <div class="lattice_box" *ngIf="mapViewLayer.layrGrpId!='400'" [class.on]="mapViewLayer.type=='vector'" (click)="setLayerType('vector', mapViewLayer.name, mapViewLayer)">
+                                <span>&nbsp;</span>
+                            </div>
+                            <div class="heat_box on" *ngIf="mapViewLayer.layrGrpId!='400'" [class.on]="mapViewLayer.type=='heatmap'" (click)="setLayerType('heatmap', mapViewLayer.name, mapViewLayer)">
+                                <span>&nbsp;</span>
+                            </div>
+                            <div class="raw_box on" *ngIf="mapViewLayer.layrGrpId=='400'" [class.on]="mapViewLayer.type=='vector'">
+                                <span>&nbsp;</span>
+                            </div>
+                        </div>
+    
+                        <div class="map_opacity compare-layer-opacity">
+                            <!-- slider group -->
+                            <div class="slider_box">
+                                <!-- Slider -->
+                                <div class="range_slider_box">
+                                    <nouislider [connect]="true" 
+                                    [min]="0" 
+                                    [max]="100" 
+                                    [step]="10" 
+                                    [(ngModel)]="mapViewLayer.opacity" 
+                                    (ngModelChange)="setLayerOpacity(mapViewLayer.name, $event)"></nouislider>                                
+                                </div>
+                                <!--// Slider -->
+                            </div>
+                            <!--// slider group -->
+                        </div>
+
+                        <div class="layer-select">
+                            <label *ngIf="mapViewLayer.venderList.length > 1" class="custom-select mt_10" [style.display]="mapViewLayer.useVender ? 'block' : 'none'">
+                                <select (change)="onChangeSubLayrAgency($event, mapViewLayer)">
+                                    <option [value]="vender.venderName" *ngFor="let vender of mapViewLayer.venderList" [selected]="vender.selected">{{vender.venderName}}</option>
+                                </select>
+                            </label>
+                            <ul *ngFor="let subFltr of mapViewLayer.subFltrList" class="sub_select">
+                                    <li *ngIf="subFltr.useYn == 'Y'" [id]="subFltr.scrnNm" (click)="onClickFilterSelect($event, subFltr, mapViewLayer)">{{subFltr.scrnNm}}</li>
+                            </ul>
+                        </div>                        
+                    </li>
+                </ul>    
+        </div>              
+
+        <div class="layer_select_wrap" style="display: block;">
+            <!-- <div *ngFor="let mapViewLayer of subFilterList"> -->
+                <div class="right_kind_box layer_sett" *ngFor="let subFltr of subFilterList">
+                    <subFilter
+                        [subFilterMetaInfo]="subFltr.fltrDtlList"
+                        (applySubFilterEmitter)="onClickApplySubFilter($event, subFltr.fltrDtlList)"
+                        (applyRemoveSubFilterEmitter)="onClickRemoveSubFilter($event, subFltr)"
+                        (applyCollapseSubFilterEmitter)="onClickCollapseSubFilter($event, subFltr)">
+                    </subFilter>
+                </div>
+            <!-- </div> -->
+        </div>
+    </div>
+
+
+
+    <div id="map" class="lpm_map_sample"></div>
+    <div class="map_bg"></div>
+</div>
+
+<lpm-south [southUIType]="southUIType"></lpm-south>
+    
+    

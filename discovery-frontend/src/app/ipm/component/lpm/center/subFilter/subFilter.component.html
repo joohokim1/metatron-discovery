@@ -1,0 +1,41 @@
+<p class="title adress">
+    {{subFilterMetaInfo.scrnNm}}
+    <!--<span class="guide_txt">?</span> -->
+    <button type="button" class="ico_arrow" (click)="onClickCollapseSubFilter($event)">화살표</button>
+    <button type="button" class="btn_del" (click)="onClickRemoveSubFilter($event)">delete</button>
+</p>
+
+<sf-custmulticheck 
+	#subFilterChild *ngIf="subFilterMetaInfo.scrnClNm=='sf-custmulticheck'" 
+	[subFilterMetaInfo]="subFilterMetaInfo" 
+	(applySubFilterEmitter)="onClickApplySubFilter($event)"
+	[style.display]="subFilterMetaInfo.isVisible ? 'block' : 'none' ">
+</sf-custmulticheck>
+
+<sf-datetime 
+	#subFilterChild *ngIf="subFilterMetaInfo.scrnClNm=='sf-datetime'" 
+	[subFilterMetaInfo]="subFilterMetaInfo" 
+	(applySubFilterEmitter)="onClickApplySubFilter($event)"
+	[style.display]="subFilterMetaInfo.isVisible ? 'block' : 'none' ">
+</sf-datetime>
+
+<sf-multiple 
+	#subFilterChild *ngIf="subFilterMetaInfo.scrnClNm=='sf-multiple'" 
+	[subFilterMetaInfo]="subFilterMetaInfo" 
+	(applySubFilterEmitter)="onClickApplySubFilter($event)"
+	[style.display]="subFilterMetaInfo.isVisible ? 'block' : 'none' ">
+</sf-multiple>
+
+<sf-range 
+	#subFilterChild *ngIf="subFilterMetaInfo.scrnClNm=='sf-range'" 
+	[subFilterMetaInfo]="subFilterMetaInfo" 
+	(applySubFilterEmitter)="onClickApplySubFilter($event)"
+	[style.display]="subFilterMetaInfo.isVisible ? 'block' : 'none' ">
+</sf-range>
+
+<sf-cei 
+	#subFilterChild *ngIf="subFilterMetaInfo.scrnClNm=='sf-cei'" 
+	[subFilterMetaInfo]="subFilterMetaInfo" 
+	(applySubFilterEmitter)="onClickApplySubFilter($event)"
+	[style.display]="subFilterMetaInfo.isVisible ? 'block' : 'none' ">
+</sf-cei>

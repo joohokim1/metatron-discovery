@@ -1,0 +1,39 @@
+<!-- datepicker -->
+<div class="range_group">
+    <p class="date_time_select">
+        날짜/시간 선택
+        <!--<button type="button" class="btn_add"><span class="ico_plus_small" (click)="onClickAddDatePicker()">추가</span></button>-->
+    </p>
+
+    <div class="date_picker_wrap">
+        <div class="date_input_box ico_calendar">
+            <input type="text" id="input-datetime-start" class="date_num">
+
+            <div class="date_time_wrap">
+                <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                    <select (change)="onChangeHour(true, $event.target.value);" ([ngModel])="startSelectedHour" [attr.disabled]="usedHour === true ? true : null">
+                        <option [value]="hour" *ngFor="let hour of hourList" [selected]="hour==startSelectedHour">{{hour}}</option>
+                    </select>
+                </label>
+            </div>
+
+        </div>
+        <div class="date_input_box ico_calendar_r">
+            <input type="text" id="input-datetime-end" class="date_num">
+
+            <div class="date_time_wrap">
+                <label class="custom-select time_select" [style.pointer-events]="usedHour === true ? 'none' : ''" [attr.disabled]="usedHour === true ? true : null">
+                    <select (change)="onChangeHour(false, $event.target.value);" [(ngModel)]="endSelectedHour" [attr.disabled]="usedHour === true ? true : null">
+                        <option [value]=hour *ngFor="let hour of hourList" [selected]="hour==endSelectedHour">{{hour}}</option>
+                    </select>
+                </label>
+            </div>
+
+        </div>
+        <!--<div class="btn_del_wrap">
+            <button type="button" class="btn_del">delete</button>
+        </div>-->
+    </div>
+
+</div>
+<!--// datepicker -->

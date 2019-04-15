@@ -1,0 +1,445 @@
+<!-- 3 Columns layout -->
+<div class="wrap" (window:resize)="regionChart.resize()">
+
+  <!-- search block -->
+  <div class="left_wrap" [class.hide]="isLeftFlexible">
+
+    <!-- 분류 -->
+    <ul class="classification">
+      <li>
+        <div class="select_wrap">
+          <div class="select_data">망구분</div>
+          <label class="custom-select w_130">
+            <select (change)="changeNetwork($event.target.value, false)">
+              <option *ngFor="let item of networkData" value="{{item.clUid}}" [selected]="selectNetwork == item.clUid">{{item.clNm}}</option>
+            </select>
+          </label>
+        </div>
+      </li>
+      <li>
+        <div class="select_wrap">
+          <div class="select_data">장비 Type</div>
+          <label class="custom-select w_130">
+            <select (change)="changeEquipment($event.target.value, false)">
+              <option *ngFor="let item of equipmentData" value="{{item.clUid}}" [selected]="selectEquipment == item.clUid">{{item.clNm}}</option>
+            </select>
+          </label>
+        </div>
+      </li>
+      <li>
+        <div class="select_wrap">
+          <div class="select_data">벤더사</div>
+          <label class="custom-select w_130">
+            <select (change)="changeVendor($event.target.value, false)">
+              <option *ngFor="let item of vendorData" value="{{item.clUid}}" [selected]="selectVendor == item.clUid">{{item.clNm}}</option>
+            </select>
+          </label>
+        </div>
+      </li>
+    </ul>
+    <!-- 분류 -->
+
+    <!-- left search -->
+    <div class="left_sch_box">
+      <div class="key_word_wrap">
+        <input #searchBox type="text" placeholder="search" class="left_search" (keydown.enter)="searchBtn.click()">
+        <a #searchBtn href="javascript:;" class="btn_sch" (click)="searchFltr(searchBox.value)"></a>
+      </div>
+
+      <!-- 전체펼치기 -->
+      <div class="toggle_block">
+        <div class="view_category" (click)="isCategory = !isCategory">카테고리 뷰</div>
+        <span class="toggle_title">전체펼치기</span>
+
+        <!-- 클릭 시 클래스 'on' -->
+        <div class="toggle_wrap" [class.on]="isHands" [class.off]="!isHands">
+          <!-- 클릭 시 클래스 'on/off' -->
+          <span class="handle" (click)="checkHands()" [class.on]="isHands" [class.off]="!isHands">handle</span>
+        </div>
+
+      </div>
+      <!--// 전체펼치기 -->
+    </div>
+    <!--// left search -->
+
+    <!-- LNB Blcok -->
+    <ul class="depth_01">
+      <ng-container *ngFor="let fltr1depth of fltrDataTmp">
+        <li *ngIf="fltr1depth.useYn === 'Y'" class="depth_01_menu">
+          <a href="javascript:;" class="depth_01_item ico_arrow" [class.open]="fltr1depth.folder" (click)="check1DepthFltrOpen(fltr1depth)">
+            {{fltr1depth.scrnNm}}
+            <span class="item_count">{{fltr1depth.fltrListCnt}}</span>
+          </a>
+          <ul *ngIf="fltr1depth.leafYn === 'N'" class="depth_02 iscroll" [hidden]="!fltr1depth.folder">
+            <ng-container *ngFor="let fltr2depth of fltr1depth.fltrList">
+              <li *ngIf="fltr2depth.useYn === 'Y'" class="depth_02_menu iscroll">
+                <a *ngIf="fltr2depth.leafYn === 'Y'" href="javascript:;" class="depth_02_item" [class.required]="fltr2depth.fltrDelYn == 'N'" [attr.fltrUid]="fltr2depth.fltrUid" (click)="fltrClickEvent($event)">{{fltr2depth.scrnNm}}</a>
+                <a *ngIf="fltr2depth.leafYn === 'N'" href="javascript:;" class="depth_02_item {{(!fltr2depth.folder) ? 'ico_close' : 'ico_open'}}" (click)="check2DepthFltrOpen(fltr2depth)">{{fltr2depth.scrnNm}}</a>
+                <ul *ngIf="fltr2depth.leafYn === 'N'" class="depth_03 iscroll" [hidden]="!fltr2depth.folder">
+                  <ng-container *ngFor="let fltr3depth of fltr2depth.fltrList">
+                    <li *ngIf="fltr3depth.useYn === 'Y'" class="depth_03_menu">
+                      <a href="javascript:;" class="depth_03_item" [class.required]="fltr2depth.fltrDelYn == 'N'" [attr.fltrUid]="fltr3depth.fltrUid" (click)="fltrClickEvent($event)">{{fltr3depth.scrnNm}}</a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+    <!--// LNB Blcok -->
+    
+    <!-- flexible button 닫힘시 클래스 'close' -->
+    <button type="button" class="l_flexible" [class.left_close]="isLeftFlexible" (click)="checkLeftFlexible()">Left Flexible</button>
+    <!--// flexible button -->
+  </div>
+  <div class="left_wrap_bg" [class.hide]="isLeftFlexible"></div>
+  <!--// search block -->
+
+  <!-- center container -->
+  <div class="center_container" [class.right_increas]="isRightFlexible" [class.left_hide]="isLeftFlexible">
+    <!-- center content start -->
+
+    <!-- 최대 도달범위 -->
+    <div class="epm_reach_wrap">
+      <!-- Loading -->
+      <div *ngIf="isChartLoading[0]">
+        <div class="ico_loading"></div>
+        <div class="loading_dom"></div>
+      </div>
+      <!--// Loading -->
+
+      <!-- header -->
+      <ul class="reach_gauge_box">
+        <li class="title_box">
+          최대 도달범위
+        </li>
+        <li class="gauge_box">
+          <!-- count gauge -->
+          <div class="count_gauge">
+            <span class="count_num">{{addComma(targetCnt)}}<span class="total_num">/{{addComma(allCnt)}}</span></span>개
+
+            <!-- gauge -->
+            <div class="gauge_out">
+              <div class="gauge_inner" [style.width]="gauge"></div>
+            </div>
+            <!--// gauge -->
+
+            <span class="gauge_num">{{persent}}</span>
+
+          </div>
+          <!--// count gauge -->
+        </li>
+        <li class="btn_box">
+          <a href="javascript:;" class="btn_setting" (click)="showChartSetPopup(true)">Setting</a>
+        </li>
+      </ul>
+      <!--// header -->
+
+       <!-- head office -->
+      <div class="head_office_box">
+        <!-- 본부선택 -->
+        <div class="select_wrap">
+          <label class="custom-select-noline w_130">
+            <select (change)="changeBranch($event)">
+              <option value="SKT" [selected]="selectHeadquarter == 'SKT'">SKT 본부</option>
+              <option value="ONS" [selected]="selectHeadquarter == 'ONS'">O&amp;S 본부</option>
+            </select>
+          </label>
+        </div>
+        <!--// 본부선택 -->
+
+        <ul *ngIf="headquarterData" class="headquarters_wrap {{headquarterData.all.length > 4 ? 'fix' : 'percent'}}">
+          <!-- 선택 시 클래스 'on'추가 -->
+          <li *ngFor="let item of headquarterData.all; let i = index" (click)="searchHeadquarter(item)">
+            <div class="headquarters_item" [class.on]="item.on">
+              <!-- 선택 시 클래스 'on'추가 -->
+              <p class="headquarter_tit txt_dot" [class.on]="item.on">{{item.name == 'null' ? '정보없음' : item.name}}</p>
+              <div class="num_box">
+                <p class="headquarter_big_num">{{addComma(headquarterData.target[i].value)}}</p>
+                <p class="headquarter_small_num">{{addComma(item.value)}}</p>
+              </div>
+              <div class="gauge_box">
+                <div class="gauge_outer">
+                  <!-- 선택 시 클래스 'on'추가 -->
+                  <div class="hq_gauge_inner" [class.on]="item.on" [style.width]="getPersent(headquarterData.target[i].value, item.value)+'%'"></div>
+                  <!-- 선택 시 클래스 'on'추가 -->
+                  <div class="gauge_num_box" [class.on]="item.on" [style.left]="getPersent(headquarterData.target[i].value, item.value)+'%'">{{getPersent(headquarterData.target[i].value, item.value)}}%</div>
+                </div>
+              </div> 
+            </div>
+          </li>
+        </ul>
+        <!--// 본부리스트 -->
+
+        <!-- 선택본부 상세보기 -->
+        <div *ngIf="teamData" class="hq_detail_info_box">
+          <p class="hq_detail_title"></p>
+          <ul class="hq_detail_chart">
+            <!-- 한개일때 div_1 ~ 총10개까지 div_10 -->
+            <ng-container *ngFor="let item of teamData.all; let i = index">
+              <li class="chart_li div_{{teamData.all.length}}">
+                <div class="hq_chart_box">
+                  <p class="percent_num">{{getPersent(teamData.target[i].value, item.value)}}<span class="percent">%</span></p>
+                  <div class="hq_bargauge_outer">
+                    <div class="hq_bargauge_inner" [style.height]="getPersent(teamData.target[i].value, item.value)+'%'"></div>
+                  </div>
+                  <p class="team_name txt_dot">{{item.name == 'null' ? '정보없음' : item.name}}</p>
+                  <div>
+                    <p class="big_num">{{addComma(teamData.target[i].value)}}</p>
+                    <p class="small_num">{{addComma(item.value)}}</p>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <!--// 선택본부 상세보기 -->
+      </div>
+      <!--// head office -->
+    </div>
+    <!--// 최대 도달범위 -->
+
+    <!-- 지역별 분포 : bar -->
+    <div [hidden]="!chartSettingList[0].isOn" class="section_wrap">
+
+      <!-- Loading -->
+      <div *ngIf="isChartLoading[1]">
+        <div class="ico_loading"></div>
+        <div class="loading_dom"></div>
+      </div>
+      <!--// Loading -->
+
+      <div class="con_block">
+        
+        <ul class="con_title_wrap">
+          <li class="title location">지역별 분포</li>
+          <li class="btn_group">
+
+            <div class="select_wrap">
+              <label class="custom-select w_130">
+                <select (change)="selectSido($event)">
+                  <option value="0">시 도 전체</option>
+                  <option *ngFor="let item of sidoData" [value]="item.code">{{item.name}}</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="select_wrap">
+              <label class="custom-select w_130">
+                <select (change)="selectSgg($event)">
+                  <option value="0">시군구 전체</option>
+                  <ng-container *ngFor="let item of sggData">
+                    <option [value]="item.code">{{item.name}}</option>
+                  </ng-container>
+                </select>
+              </label>
+            </div>
+          </li>
+        </ul>
+
+        <!-- chart -->
+        <div id="regionChart" class="location_barchart" style="height:304px;"></div>
+        <!--// chart -->
+
+      </div>
+    </div>
+    <!--// 지역별 분포 : bar -->
+
+    <!-- 장비목록 별 성능 -->
+    <div [hidden]="!chartSettingList[1].isOn" class="position_r">
+      <!-- Loading -->
+      <div *ngIf="isChartLoading[2]">
+        <div class="ico_loading"></div>
+        <div class="loading_dom"></div>
+      </div>
+      <!--// Loading -->
+      <epm-list-table *ngIf="epmListData" [epmListData]="epmListData" [selectedEqp]="selectedEqp" [epmHeaderListData]="epmHeaderListData" [equipment]="equipment" (onDownloadExcel)="downloadExcel($event)"
+        (onChangeEpmListCnt)="changeEpmListCnt($event)" (onSelectEpmList)="selectEpmList()"></epm-list-table>
+      <epm-detail-table *ngIf="epmDetailData" [epmDetailData]="epmDetailData" (onDownloadExcel)="downloadExcel($event)" (onAddEpmDetailData)="addEpmDetailData()"></epm-detail-table>
+    </div>
+
+    
+    <!--// 장비목록 별 성능 -->
+
+    <!--// center content end -->
+  </div>
+  <!--// center container -->
+
+  <!-- right side -->
+  <div class="right_container" [class.increas]="isRightFlexible">
+
+    <!-- 즐겨찾기 -->
+    <bmrk [bmrkData]="bmrkData" (onChangeFilter)="changeBmrk($event)" (onBmrkRemoveCheck)="removeBmrk($event)"></bmrk>
+    <!--// 즐겨찾기 -->
+
+    <!-- 필터관리 -->
+    <div class="filter_set_box">
+
+      <p class="title">
+        필터관리<span class="guide_txt">{{bmrkTitle}}</span>
+        <span class="con_num">{{filterDataTmp.length}}</span>
+      </p>
+
+      <!-- filter list -->
+      <ul *ngIf="filterDataTmp.length" class="filter_list_box iscroll">
+        <li *ngFor="let item of filterDataTmp; let i = index" class="filter_item_box" (click)="searchFilter(item)">
+          <button *ngIf="!item.fltrWoYn.includes('N')" type="button" class="status_not" [class.on]="item.type == 'not'" (click)="changeFilterNot($event, i)">NOT</button>
+          <p class="filter_con" [class.required]="item.fltrDelYn == 'N'" [attr.title]="item.dtNm">{{item.scrnNm}} : {{item.dtNm}}</p>
+          <button *ngIf="!item.fltrDelYn.includes('N')" type="button" class="btn_del" (click)="removeFilter($event, item)">delete</button>
+        </li>
+      </ul>
+      <div *ngIf="!filterDataTmp.length" class="filter_nodata">
+        검색된 필터가 없습니다.
+      </div>
+      <!--// filter list -->
+
+      <!-- button -->
+      <div *ngIf="filterDataTmp.length" class="filter_set_btn txt_c">
+        <!-- 활성화 시 'on'추가 -->
+        <button type="button" class="set_btn add" (click)="showBmrkPopup(true)">추가</button>
+        <button type="button" *ngIf="isBmrkSave" class="set_btn save" (click)="showBmrkModPopup(true)">저장</button>
+        <button type="button" class="set_btn reset" (click)="resetFilter()">초기화</button>
+        <button type="button" class="set_btn upload">업로드</button>
+      </div>
+      <button *ngIf="!filterDataTmp.length" type="button" class="fillter_upload">
+        <span class="ico_upload">CSV업로드</span>
+      </button>
+      <!--// button -->
+
+      <!-- Height Slider -->
+      <div class="h_slider">SLIDER</div>
+      <!--// Height Slider -->
+
+    </div>
+    <!--// 필터관리 -->
+
+    <!-- 우측 선택적 컨텐츠 -->
+    <right-kind [menuDetailData]="menuDetailData" [isRightFlexible]="isRightFlexible" (onSubmitRightKind)="submitRightKind($event)"></right-kind>
+    <!--// 우측 선택적 컨텐츠 -->
+    
+    <!-- flexible button 닫힘시 클래스 'close' -->
+    <button type="button" class="r_flexible" [class.increas]="isRightFlexible" (click)="checkRightFlexible($event)">Right Flexible</button>
+    <!--// flexible button -->
+  </div>
+  <div class="right_container_bg" [class.increas]="isRightFlexible"></div>
+  <!--// right side -->
+
+  <!-- 즐겨찾기 추가 팝업 -->
+  <div class="popup_wrap favorite_add" [class.dsp_block]="isAddBmrkPopup" >
+
+    <div class="popup_head">
+      <h2>필터 추가</h2>
+      <a href="javascript:;" (click)="showBmrkPopup(false)"></a>
+    </div>
+
+    <!-- 팝업 컨텐츠 -->
+    <div class="popup_contents">
+
+      <div class="input_header">
+        <span class="header_title">제목</span>
+        <span class="txt_count">{{addBmrkNm.value.length}} / 20 자</span>
+      </div>
+
+      <input #addBmrkNm type="text" class="favorite_input" 
+        [(ngModel)]="bmrkNm" (ngModelChange)="null"
+        placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20">
+    </div>
+    <!-- 팝업 컨텐츠 -->
+
+    <div class="pop_btn_wrap">
+      <button type="button" class="btn left confirm" (click)='addBmrk()'>추가</button><button type="button" class="btn right" (click)="showBmrkPopup(false)">취소</button>
+    </div>
+
+  </div>
+  <!--// 즐겨찾기 추가 팝업 -->
+
+  <!-- 즐겨찾기 수정 팝업 -->
+  <div class="popup_wrap favorite_modify" [class.dsp_block]="isModBmrkPopup">
+
+    <div class="popup_head">
+      <h2>필터 수정</h2>
+      <a href="javascript:;" (click)="showBmrkModPopup(false)"></a>
+    </div>
+
+    <!-- 팝업 컨텐츠 -->
+    <div class="popup_contents">
+
+      <div class="input_header">
+        <span class="header_title">제목</span>
+        <span class="txt_count">{{modBmrkNm.value.length}} / 20 자</span>
+      </div>
+
+      <input #modBmrkNm type="text" class="favorite_input" 
+        [(ngModel)]="bmrkNm" (ngModelChange)="null" maxlength="20">
+
+    </div>
+    <!-- 팝업 컨텐츠 -->
+
+    <div class="pop_btn_wrap">
+      <button type="button" class="btn left confirm" (click)="modifyBmrk()">저장</button><button type="button" class="btn right" (click)="showBmrkModPopup(false)">취소</button>
+    </div>
+
+  </div>
+  <!--// 즐겨찾기 수정 팝업 -->
+  
+  <!-- 기본차트 설정 팝업 -->
+  <div class="popup_wrap chart_setting_epm" [class.dsp_block]="isChartSettingPopup">
+
+    <div class="popup_head">
+      <h2>기본차트 설정</h2>
+      <a href="javascript:;" (click)="showChartSetPopup(false)"></a>
+    </div>
+
+    <!-- 팝업 컨텐츠 -->
+    <div class="popup_contents">
+      <ul class="chart_set_list">
+        <li class="set_list_item" *ngFor="let item of chartSettingTempList; let i = index">
+          <p class="item_text">{{item.name}}</p>
+          <div class="item_toggle">
+            <!-- 클래스 'on/off' -->
+            <div class="toggle_wrap" [class.on]="item.isOn" [class.off]="!item.isOn">
+              <!-- 클릭 시 클래스 'on/off' -->
+              <span class="handle" [class.on]="item.isOn" [class.off]="!item.isOn"
+                (click)="changeChartSetting(item)">handle</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+      
+    <div class="pop_btn_wrap">
+      <button type="button" class="btn left confirm" (click)="saveChartSetting()">저장</button><button type="button" class="btn right" (click)="showChartSetPopup(false)">취소</button>
+    </div>
+
+  </div>
+  <!--// 기본차트 설정 팝업 -->
+
+  <div class="black_overlay" [class.dsp_block]="isBlackOverlay"></div>
+
+  <!-- 카테고리 표출 -->
+  <div class="category_wrap" [class.dsp_none]="!isCategory">
+    <div class="title">
+      <h1 class="epm">카테고리 뷰(장비)</h1>
+      <a href="#none" class="category_close" (click)="isCategory = !isCategory"></a>
+    </div>
+
+    <ul *ngFor="let fltr of fltrCategoryData; let i = index">
+      <li *ngFor="let fltr1depth of fltr">
+        <div class="title">{{fltr1depth.scrnNm}}</div>
+        <div class="list">
+          <ng-container *ngFor="let fltr2depth of fltr1depth.fltrList">
+            <p>{{fltr2depth.scrnNm}}</p>
+            <p class="sub" *ngIf="fltr2depth.fltrList.length">
+              <span *ngFor="let fltr3depth of fltr2depth.fltrList">- {{fltr3depth.scrnNm}}</span>
+            </p>
+          </ng-container>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!--// 카테고리 표출 -->
+
+</div>
+<!-- 3 Columns layout -->

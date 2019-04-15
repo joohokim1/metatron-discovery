@@ -1,0 +1,12 @@
+<div class="layer_sett_result">
+	<ul class="list_header">
+		<li class="check_box">
+			<span class="check_txt" [class.checked]="isAllSelect" (click)="onClickAllSelect()">전체선택</span>
+		</li>
+	</ul>
+
+	<div class="sch_result_box isscroll">
+		<!-- <p class="result_row" *ngFor="let item of fltrVal" [class.on]="item.checked" (click)="item.checked ? item.checked = false : item.checked = true">{{item.name}}</p> -->
+		<p class="result_row" *ngFor="let item of fltrVal" [class.on]="item.checked" (click)="onClickModelSelect(item)">{{item.name}}</p>
+	</div>
+</div>
