@@ -171,7 +171,10 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
             this.depth1Menu1ClickListener('MANAGEMENT');
             this.mgmtMenuClickListener('DATAPREPARATION');
             break;
-          case '/management/ipm/profile' :
+          case '/management/ipm/main' :
+          case '/management/ipm/icpm' :
+          case '/management/ipm/epm' :
+          case '/management/ipm/lpm' :
             this.depth1Menu1ClickListener('MANAGEMENT');
             this.mgmtMenuClickListener('IPM');
             break;
