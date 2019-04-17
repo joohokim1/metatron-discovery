@@ -1,6 +1,0 @@
-<div *ngIf="leftUIType" class="lpm_left_box">
-    <!-- uiType에 따른 컴포넌트 사용 -->
-    <lpm-menu #leftChild *ngIf="leftUIType == 'lpm-menu'"></lpm-menu>
-    <lpm-prop #leftChild *ngIf="leftUIType == 'lpm-prop'" [selFeature]="selFeature" [propKeyList]="propKeyList"></lpm-prop>
-</div>
-          
