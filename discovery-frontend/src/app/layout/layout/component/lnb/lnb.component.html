@@ -178,26 +178,6 @@
                 </li>
               </ul>
             </li>
-            <li *ngIf="permission.managementDatasource" [ngClass]="{'ddp-selected': lnbManager.management.ipm.fold == false}">
-              <a href="javascript:" (click)="mgmtMenuClickListener('IPM')">
-                <em class="ddp-icon-dot"></em>
-                IPM
-              </a>
-              <ul class="ddp-list-sublnb-2depth">
-                <li>
-                  <a href="javascript:" (click)="move('management/ipm/main')">MAIN</a>
-                </li>
-                <li>
-                  <a href="javascript:" (click)="move('management/ipm/icpm')">ICPM</a>
-                </li>
-                <li>
-                  <a href="javascript:" (click)="move('management/ipm/epm')">EPM</a>
-                </li>
-                <li>
-                  <a href="javascript:" (click)="move('management/ipm/lpm')">LPM</a>
-                </li>
-              </ul>
-            </li>
             <li *ngIf="permission.managementDatasource" [ngClass]="{'ddp-selected': lnbManager.management.modelManager.fold == false}">
               <a href="javascript:" (click)="mgmtMenuClickListener('MODELMANAGER')">
                 <em class="ddp-icon-dot"></em>

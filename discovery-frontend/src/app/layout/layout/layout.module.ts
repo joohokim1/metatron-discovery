@@ -55,11 +55,6 @@ const layoutRoutes: Routes = [
         canActivate: [DatasourceManagementGuard]
       },
       {
-        path: 'management/ipm',
-        loadChildren: 'app/ipm/ipm.module#IpmModule',
-        canActivate: [DatasourceManagementGuard]
-      },
-      {
         path: 'management/model',
         loadChildren: 'app/model-management/model-management.module#ModelManagementModule',
         canActivate: [DatasourceManagementGuard]
