@@ -1,0 +1,26 @@
+.slick-group-header-columns {
+	position: relative;
+	white-space: nowrap;
+	cursor: default;
+	overflow: hidden;
+}
+
+.slick-group-header-columns .slick-header-column {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.slick-group-header-columns .slick-column-name {
+	text-align: center;
+}
+
+.slick-header-column.ui-state-default.slick-header-top {
+	padding: 0px;
+}
+
+.slick-header-top .slick-column-name {
+	display: inline-block;
+	height: 30px;
+	padding: 5px 0;
+	box-sizing: border-box;
+}

@@ -24,6 +24,10 @@
 @import url('assets/css/polaris.v2.css');
 @import url('assets/css/polaris.v2.editor.css');
 @import url('assets/css/lib/dnd/style.css');
+@import url('assets/css/ipm/dtp.css');
+@import url('assets/css/ipm/ipm_common.css');
+@import url('assets/css/ipm/ipm_style.css');
+@import url('assets/css/ipm/lpm_style.css');
 @import url('lib/pivot-grid/pivot.view.css');
 @import url('lib/at/jquery.atwho.css');
 input:-webkit-autofill {

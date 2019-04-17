@@ -23,7 +23,7 @@ export class IcpmService extends AbstractService {
    *
    */
   public getIcpmFltrBasList(): Promise<CommonResult> {
-    return this.post(`${this.API_URL}/ipm/icpm/getIcpmFltrBasList`, null);
+    return this.post(`${this.API_URL}ipm/icpm/getIcpmFltrBasList`, null);
   }
 
   /**
@@ -37,7 +37,7 @@ export class IcpmService extends AbstractService {
       fltrUid : fltrUid
     }
 
-    return this.post(`${this.API_URL}/ipm/icpm/getIcpmFltrBas`, this.requestData);
+    return this.post(`${this.API_URL}ipm/icpm/getIcpmFltrBas`, this.requestData);
   }
 
   /**
@@ -46,7 +46,7 @@ export class IcpmService extends AbstractService {
    * @param params (필터 조건)
    */
   public getIcpmCharts(params: any): Promise<CommonResult> {
-    return this.post(`${this.API_URL}/ipm/icpm/getIcpmCharts`, params);
+    return this.post(`${this.API_URL}ipm/icpm/getIcpmCharts`, params);
   }
 
   /**
@@ -58,7 +58,7 @@ export class IcpmService extends AbstractService {
 
     const fileNm = '고객목록-' + params.occrDt;
     const timestamp = moment().format('YYYYMMDD-HHmmss').toString();
-    return this.excelDownload(`${this.API_URL}/ipm/icpm/getIcpmExcel`, `${fileNm}_${timestamp}.xlsx`, 'POST', params);
+    return this.excelDownload(`${this.API_URL}ipm/icpm/getIcpmExcel`, `${fileNm}_${timestamp}.xlsx`, 'POST', params);
   }
 
   /**
