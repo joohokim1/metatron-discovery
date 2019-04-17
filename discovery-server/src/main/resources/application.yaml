@@ -431,3 +431,166 @@ polaris:
         filterKey: published
         filterValue: true
         filterName: msg.storage.ui.criterion.open-data
+
+spring:
+  profiles: ipm
+polaris:
+  ipm:
+    upload:
+      path: /tmp
+    druid-host: localhost
+    druid-port: 8082
+    druid-com-pool: 10
+    druid-icpm-pool: 30
+    druid-epm-pool: 20
+    ds-com: dcoc_com_cd
+    ds-com-dim:
+      com_cd, com_cd_nm
+    ds-com-fltr: com_grp_cd
+    ds-addr: dcoa_ldong_adong_mapp_addr
+    ds-addr-interval: 2018-09-28T00:00:00.000Z/2018-09-29T00:00:00.000Z
+    ds-addr-dim-sido:
+      sido_seq, sido_nm, sido_cd
+    ds-addr-dim-sgg:
+      sgg_nm, sgg_cd
+    ds-addr-fltr-sgg:
+      sido_cd
+    ds-addr-dim-dong:
+      dong_nm, dong_cd
+    ds-addr-fltr-dong:
+      sido_cd, sgg_cd
+    ds-hday: dccc_calendar_intg
+    ds-hday-fltr: hday_yn
+    ds-hday-interval: 1900-01-01T00:00:00.000Z/3000-01-01T00:00:00.000Z
+    ds-team: dcoo_com_org_info
+    ds-team-interval: 2018-09-19T00:00:00.000Z/2018-09-20T00:00:00.000Z
+    ds-team-dim: hdofc_seq, hdofc_nm, hdofc_cd
+  icpm:
+    ds-icpm: msmf_cust_prfl_mst_sum_1d
+    ds-icpm-dim-region: main_cell_ldong_cd
+    ds-icpm-dim-sido:
+      main_cell_sido_cd, main_cell_sido_nm
+    ds-icpm-dim-sgg:
+      main_cell_sgg_cd, main_cell_sgg_nm
+    ds-icpm-fltr-sgg:
+      main_cell_sido_cd
+    ds-icpm-dim-dong:
+      main_cell_dong_cd, main_cell_dong_nm
+    ds-icpm-fltr-dong:
+      main_cell_sido_cd, main_cell_sgg_cd
+    ds-icpm-dim-age: user_estmt_age
+    ds-icpm-dim-age-min: 0
+    ds-icpm-dim-age-max: 80
+    ds-icpm-dim-age-step: 5
+    ds-icpm-dim-age-minwith: false
+    ds-icpm-dim-age-maxwith: true
+    ds-icpm-dim-vendor: ue_vend_nm
+    ds-icpm-thr-vendor: 10
+    ds-icpm-dim-model: ue_mdl_intg_nm
+    ds-icpm-thr-model: 20
+    ds-icpm-dim-team: main_cell_hdofc_cd
+    ds-icpm-dim-traffic: trf_qty
+    ds-icpm-dim-traffic-min: 0
+    ds-icpm-dim-traffic-max: 10000
+    ds-icpm-dim-cei: dat_cei_rcnt_day03_scor
+    ds-icpm-dim-cei-min: 0
+    ds-icpm-dim-cei-max: 100
+    ds-icpm-dim-cei-label:
+      95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 0
+    ds-icpm-excel-limit: 10000
+    ds-icpm-excel-sheet-nm: 고객목록
+    ds-icpm-excel-grid-wo-list:
+      scrbr_sex_nm,scrbr_age,use_pred,inv_ldong_cd,bas_prpn_cd,mbrp_gr_nm,user_estmt_sex_nm,
+      user_estmt_age,estmt_comp_ldong_cd,estmt_comp_wkdy_stay_time,estmt_comp_hday_stay_time,
+      home_comp_expt_dist_val,wkdy_home_stay_time,hday_home_stay_time,skt_tm_acpt_scor,ob_tm_acpt_scor
+  epm:
+    equipment-enb:
+      b01
+    equipment-cell:
+      b02
+    vendor-com:
+      c07, c08
+    vendor-ss:
+      c01, c04
+    vendor-nsn:
+      c02, c05
+    vendor-elg:
+      c03, c06
+    vendor-ss-cd: BP0001001
+    vendor-nsn-cd: BP0004416
+    vendor-elg-cd: BP0004415
+    ds-epm-com-enb-h: dpsn_lte_com_enb_stc_1h
+    ds-epm-com-cell-h: dpsn_lte_com_cell_stc_1h
+    ds-epm-ss-enb-h: dpsn_lte_ss_enb_stc_1h
+    ds-epm-ss-cell-h: dpsn_lte_ss_cell_stc_1h
+    ds-epm-nsn-enb-h: dpsn_lte_nsn_enb_stc_1h
+    ds-epm-nsn-cell-h: dpsn_lte_nsn_cell_stc_1h
+    ds-epm-elg-enb-h: dpsn_lte_elg_enb_stc_1h
+    ds-epm-elg-cell-h: dpsn_lte_elg_cell_stc_1h
+    ds-epm-com-enb-d: dpsn_lte_com_enb_stc_1d
+    ds-epm-com-cell-d: dpsn_lte_com_cell_stc_1d
+    ds-epm-ss-enb-d: dpsn_lte_ss_enb_stc_1d
+    ds-epm-ss-cell-d: dpsn_lte_ss_cell_stc_1d
+    ds-epm-nsn-enb-d: dpsn_lte_nsn_enb_stc_1d
+    ds-epm-nsn-cell-d: dpsn_lte_nsn_cell_stc_1d
+    ds-epm-elg-enb-d: dpsn_lte_elg_enb_stc_1d
+    ds-epm-elg-cell-d: dpsn_lte_elg_cell_stc_1d
+    ds-epm-org-dim-skt1:
+      jrdt_hdofc_org_id, jrdt_hdofc_org_nm
+    ds-epm-org-dim-skt2:
+      jrdt_team_org_id, jrdt_team_org_nm
+    ds-epm-org-fltr-skt2:
+      jrdt_hdofc_org_id
+    ds-epm-org-dim-skt3:
+      op_team_org_id, op_team_org_nm
+    ds-epm-org-fltr-skt3:
+      jrdt_hdofc_org_id, jrdt_team_org_id
+    ds-epm-org-dim-ons1:
+      op_hdofc_org_id, op_hdofc_org_nm
+    ds-epm-org-dim-ons2:
+      op_team_org_id, op_team_org_nm
+    ds-epm-org-fltr-ons2:
+      op_hdofc_org_id
+    ds-epm-addr-dim-sido:
+      sido_cd, sido_nm
+    ds-epm-addr-dim-sgg:
+      sgg_cd, sgg_nm
+    ds-epm-addr-fltr-sgg:
+      sido_cd
+    ds-epm-addr-dim-ldong:
+      ldong_cd, ldong_nm
+    ds-epm-addr-fltr-ldong:
+      sido_cd, sgg_cd
+    ds-epm-ems-dim:
+      ems_eqp_id, ems_eqp_nm
+    ds-epm-enb-dim:
+      enb_id, eqp_nm
+    ds-epm-mtso-dim:
+      mtso_id, mtso_nm
+    ds-epm-fltr-skt:
+      jrdt_hdofc_org_id, jrdt_team_org_id, op_team_org_id
+    ds-epm-fltr-ons:
+      op_hdofc_org_id, op_team_org_id
+    ds-epm-fltr-addr:
+      sido_cd, sgg_cd, ldong_cd
+    ds-epm-enb-fltr-ems:
+      ems_eqp_id
+    ds-epm-mtso-fltr-typ:
+      mtso_typ_cd
+    ds-epm-chart-eqp-dim-enb:
+      eqp_nm, enb_id, ems_id, mtso_nm, sido_nm, sgg_nm, ldong_nm, jrdt_hdofc_org_nm, jrdt_team_org_nm, op_hdofc_org_nm, op_team_org_nm
+    ds-epm-chart-eqp-dim-enb-nm:
+      eNB명, eNB ID, EMS, 국사명, 시도, 시군구, 법정동, SKT 본부, 팀, ONS 본부, 팀
+    ds-epm-chart-eqp-dim-cell:
+      eqp_nm, enb_id, cell_num, ems_id, mtso_nm, sido_nm, sgg_nm, ldong_nm, jrdt_hdofc_org_nm, jrdt_team_org_nm, op_hdofc_org_nm, op_team_org_nm
+    ds-epm-chart-eqp-dim-cell-nm:
+      eNB명, eNB ID, Cell 번호, EMS, 국사명, 시도, 시군구, 법정동, SKT 본부, 팀, ONS 본부, 팀
+    ds-epm-chart-limit: 10
+    ds-epm-chart-thr: 10
+    ds-epm-chart-excel-thr: 10000
+    ds-epm-chart-excel-sheet-nm:
+      장비목록, 1시간단위성능, 1일단위성능, 장비성능요약
+  lpm:
+    ds-lpm: dsmc_bypcell_flow_popul_inf_1h
+    ds-lpm2: dcoa_ldong_adong_mapp_addr
+    ds-lpm-grid-dim-nm: 시도, 시군구, 읍면동, 법정동 코드, eNB ID, Cell 번호, 사용자 성별, 사용자 연령, 종합CEI점수, 사용자 수
