@@ -70,22 +70,18 @@ import { LPMSouthComponent } from './component/lpm/south/south.component';
 import { SouthDefaultComponent } from './component/lpm/south/default/south_default.component';
 import { LPMChartComponent } from './component/lpm/south/chart/lpm_chart.component';
 import { LPMGridComponent } from './component/lpm/south/grid/lpm_grid.component';
+import { FormsModule } from '@angular/forms';
 
 const ipmRoutes: Routes = [
-	{
-    path: '', component: IpmComponent,
-    children: [
-      { path: '', redirectTo: 'main', pathMatch : 'full' },
-      { path: 'main', component: MainComponent },
-      { path: 'icpm', component: IcpmComponent },
-      { path: 'epm', component: EpmComponent },
-      { path: 'lpm', component: LpmComponent }
-    ]
-  }
+  { path: '', component: LpmComponent },
+  { path: 'icpm', component: IcpmComponent },
+  { path: 'epm', component: EpmComponent },
+  { path: 'lpm', component: LpmComponent }
 ];
 
 @NgModule({
   imports: [
+    FormsModule,
     RouterModule.forChild(ipmRoutes),
     CommonModule,
     //SharedModule,
