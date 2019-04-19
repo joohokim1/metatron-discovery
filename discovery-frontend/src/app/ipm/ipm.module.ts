@@ -72,11 +72,21 @@ import { LPMChartComponent } from './component/lpm/south/chart/lpm_chart.compone
 import { LPMGridComponent } from './component/lpm/south/grid/lpm_grid.component';
 import { FormsModule } from '@angular/forms';
 
+/*
 const ipmRoutes: Routes = [
   { path: '', component: LpmComponent },
   { path: 'icpm', component: IcpmComponent },
   { path: 'epm', component: EpmComponent },
   { path: 'lpm', component: LpmComponent }
+];
+*/
+const ipmRoutes: Routes = [
+  { path: '', component: IpmComponent, children: [
+    { path: 'icpm', component: IcpmComponent },
+    { path: 'epm', component: EpmComponent },
+    { path: 'lpm', component: LpmComponent }
+    ]
+  }
 ];
 
 @NgModule({

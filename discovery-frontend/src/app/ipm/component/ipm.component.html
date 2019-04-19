@@ -1,28 +1,3 @@
-<header class="header_top">
-  <!-- <h1 class="h1_logo" routerLink="main">IPM 통합분석</h1> -->
-  <h1 class="h1_logo" routerLink="main"></h1>
-
-	<!-- location -->
-	<!-- <div class="top_center img_{{url}}">
-		{{title}}
-    <span class="s_text">({{subTitle}} Profiling Matrix)</span>
-	</div> -->
-	<!--// location -->
-
-</header>
-<!--// header -->
-
-<!-- GNB Block -->
-<div class="gnb_block">
-  <a href="javascript:;" routerLink="epm" class="img_ico equipment" [class.on]="url == 'epm'">Equipment</a>
-  <a href="javascript:;" routerLink="lpm" class="img_ico location" [class.on]="url == 'lpm'">Location</a>
-  <a href="javascript:;" routerLink="icpm" class="img_ico person" [class.on]="url == 'icpm'">Person</a>
-  <!-- <a href="javascript:;" routerLink="icpm" class="img_ico person" [class.on]="url == 'icpm'">Person</a>
-  <a href="javascript:;" routerLink="epm" class="img_ico equipment" [class.on]="url == 'epm'">Equipment</a>
-  <a href="javascript:;" routerLink="lpm" class="img_ico location" [class.on]="url == 'lpm'">Location</a> -->
-</div>
-<!--// GNB Block -->
-
 <!-- 3 Columns layout -->
 <router-outlet (window:resize)="style()" (window:scroll)="style()"></router-outlet>
 <!-- 3 Columns layout -->

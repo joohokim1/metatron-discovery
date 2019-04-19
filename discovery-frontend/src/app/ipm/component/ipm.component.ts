@@ -49,6 +49,7 @@ export class IpmComponent extends AbstractComponent implements OnInit {
    */
   public style(): void {
 
+/*
     if (matchMedia('(max-width: 1199px)').matches){
       let left = $(window).scrollLeft();
       $('#ipm_wrap .r_flexible').css('left', 860 - left);
@@ -67,5 +68,6 @@ export class IpmComponent extends AbstractComponent implements OnInit {
       $('#ipm_wrap .r_flexible').css('left', 'inherit').css('right', '324px;');
       $('#ipm_wrap .right_container_bg').css('left', 'inherit').css('right', '0');
     };
+  */
   }
 }
