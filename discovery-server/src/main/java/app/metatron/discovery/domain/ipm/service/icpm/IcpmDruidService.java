@@ -662,7 +662,7 @@ public class IcpmDruidService extends DruidService {
                     Map event = mapBasedRow.getEvent();
                     Object evtNm = event.get(dsIcpmDimAge);
                     if (evtNm != null) {
-                        double nm = (Double)evtNm;
+                        double nm = Double.valueOf((String) evtNm);
                         int age = (int)nm;
                         int value = (Integer)event.get("value");
                         if (age >= dsIcpmDimAgeMin && age <= dsIcpmDimAgeMax) {
@@ -721,7 +721,7 @@ public class IcpmDruidService extends DruidService {
                             Object evtNm = event.get(dsIcpmDimAge);
 
                             if (evtNm != null) {
-                                double nm = (Double)evtNm;
+                                double nm = Double.valueOf((String) evtNm);
                                 int age = (int)nm;
                                 int value = (Integer)event.get("value");
                                 if (age >= dsIcpmDimAgeMin && age <= dsIcpmDimAgeMax) {
@@ -1277,7 +1277,7 @@ public class IcpmDruidService extends DruidService {
                     Object evt = event.get(dsIcpmDimTraffic);
 
                     if (evt != null) {
-                        double evtNm = (Double)evt;
+                        double evtNm = Double.valueOf((String) evt);
                         int evtVal = (Integer)event.get("value");
 
                         if (evtNm >= dsIcpmDimTrafficMax) {
@@ -1313,7 +1313,7 @@ public class IcpmDruidService extends DruidService {
                             Object evt = event.get(dsIcpmDimTraffic);
 
                             if (evt != null) {
-                                double evtNm = (Double)evt;
+                                double evtNm = Double.valueOf((String) evt);
                                 int evtVal = (Integer)event.get("value");
 
                                 if (evtNm >= dsIcpmDimTrafficMax) {
