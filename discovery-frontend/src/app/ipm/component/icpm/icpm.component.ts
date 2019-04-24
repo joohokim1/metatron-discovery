@@ -309,7 +309,7 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
 
   public testFltr = [
    {
-      "druidNm": "address",
+      "druidNm": "estmt_rsdnc_sido_cd",
       "scrnClNm":"address",
       "fltrVal":[{
             "code":[ "11" ],
