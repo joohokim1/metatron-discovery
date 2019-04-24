@@ -307,6 +307,18 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
 
   protected jQuery = $;
 
+  public testFltr = [
+   {
+      "druidNm": "address",
+      "scrnClNm":"address",
+      "fltrVal":[{
+            "code":[ "11" ],
+            "name":[ "서울" ]
+         }]
+   }
+  ];
+  public jsonFltr = JSON.stringify(this.testFltr, null, 4);
+
   // 생성자
   constructor(
     protected elementRef: ElementRef,
@@ -1184,7 +1196,8 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
     this.chartSettingList[3].isLoading = true;
     this.icpmService.getIcpmCharts({
       chartNum: this.chartNum.phone,
-      fltrDatVal: this.filterDataTmp,
+      //fltrDatVal: this.filterDataTmp,
+      fltrDatVal: JSON.parse(this.jsonFltr),
       occrDt: this.icpmDate
     })
     .then(result => {

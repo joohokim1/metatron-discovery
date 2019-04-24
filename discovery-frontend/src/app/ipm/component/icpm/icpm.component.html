@@ -40,6 +40,13 @@
     </div>
     <!--// left search -->
 
+    <!-- json filter -->
+    <div class="left_json_box">
+      <textarea ref-textarea [(ngModel)]="jsonFltr" cols="30" rows="15"></textarea><br/>
+      <button (click)="getPhoneChartData()">Refresh phone chart</button>
+    </div>
+
+    <!--// left search -->
     <!-- LNB Blcok -->
     <ul class="depth_01">
       <ng-container *ngFor="let item of fltrDataTmp">
@@ -80,7 +87,7 @@
 
       <div class="con_block">
         <h2 class="con_top_h2">타겟 회선 수<span class="guide_txt" (click)="showInfoPopup(true);">?</span></h2>
-        
+
         <!-- count gauge -->
         <div class="count_gauge">
           <span class="info_target"><strong>타켓</strong>/전체</span>
@@ -135,7 +142,7 @@
     <!-- CEI 구간별 분포 -->
     <!-- <div class="section_wrap">
 
-      
+
       <div class="con_block">
 
         <ul class="con_title_wrap">
@@ -147,9 +154,9 @@
             </div>
           </li>
         </ul>
-        
+
         <div id="ceiChart" style="height:304px;"></div>
-        
+
       </div>
 
     </div> -->
@@ -360,7 +367,7 @@
       <div *ngIf="filterDataTmp.length" class="filter_set_btn txt_c">
         <!-- 활성화 시 'on'추가 -->
         <!-- SHJI 팝업 변경중-->
-        
+
         <button type="button" class="set_btn add" (click)="showBmrkPopup(true)">추가</button>
         <button type="button" *ngIf="isBmrkSave" class="set_btn save" (click)="showBmrkModPopup(true)">저장</button>
         <button type="button" class="set_btn reset" (click)="resetFilter()">초기화</button>
@@ -377,7 +384,7 @@
 
     </div>
     <!--// 필터관리 -->
-    
+
     <!-- 우측 선택적 컨텐츠 -->
     <right-kind [menuDetailData]="menuDetailData" [isRightFlexible]="isRightFlexible" (onSubmitRightKind)="submitRightKind($event)"></right-kind>
     <!--// 우측 선택적 컨텐츠 -->
@@ -406,7 +413,7 @@
         <span class="txt_count">{{addBmrkNm.value.length}} / 20 자</span>
       </div>
 
-      <input #addBmrkNm type="text" class="favorite_input" 
+      <input #addBmrkNm type="text" class="favorite_input"
         [(ngModel)]="bmrkNm" (ngModelChange)="null"
         placeholder="제목을 입력해 주세요 (20자 이내)" maxlength="20">
     </div>
@@ -435,7 +442,7 @@
         <span class="txt_count">{{modBmrkNm.value.length}} / 20 자</span>
       </div>
 
-      <input #modBmrkNm type="text" class="favorite_input" 
+      <input #modBmrkNm type="text" class="favorite_input"
         [(ngModel)]="bmrkNm" (ngModelChange)="null" maxlength="20">
 
     </div>
@@ -472,7 +479,7 @@
         </li>
       </ul>
     </div>
-      
+
     <div class="pop_btn_wrap">
       <button type="button" class="btn left confirm" (click)="saveChartSetting()">저장</button><button type="button" class="btn right" (click)="showChartSetPopup(false)">취소</button>
     </div>
@@ -499,7 +506,7 @@
       모든 객체를 포함합니다.
       </div>
     </div>
-      
+
     <div class="pop_btn_wrap">
       <button type="button" class="btn full confirm" (click)="showInfoPopup(false)">확인</button>
     </div>
