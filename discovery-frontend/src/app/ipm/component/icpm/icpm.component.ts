@@ -308,14 +308,30 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
   protected jQuery = $;
 
   public testFltr = [
+    {
+        "druidNm": "estmt_rsdnc_sido_cd",
+        "scrnClNm": "address",
+        "fltrVal": [
+            {
+                "code": [
+                    "11"
+                ],
+                "name": [
+                    "서울"
+                ]
+            }
+        ]
+    },
    {
-      "druidNm": "estmt_rsdnc_sido_cd",
-      "scrnClNm":"address",
-      "fltrVal":[{
-            "code":[ "11" ],
-            "name":[ "서울" ]
-         }]
-   }
+        "druidNm": "mbrp_gr_cd",
+        "scrnClNm": "grade_test",
+        "fltrVal": [
+            {
+                "code": "V",
+                "name": "VIP"
+            }
+        ]
+    }
   ];
   public jsonFltr = JSON.stringify(this.testFltr, null, 4);
 
