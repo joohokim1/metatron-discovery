@@ -260,7 +260,7 @@ polaris:
       metastoreUri: thrift://localhost:9083
   dataprep:
     localBaseDir: ${user.home}/dataprep
-#    hadoopConfDir: /etc/hadoop
+    hadoopConfDir: /etc/hadoop/conf
 #    stagingBaseDir: hdfs://localhost:9000/user/hive/dataprep
 #    sampling:
 #      timeout: 20
@@ -448,7 +448,7 @@ polaris:
       com_cd, com_cd_nm
     ds-com-fltr: com_grp_cd
     ds-addr: dcoa_ldong_adong_mapp_addr
-    ds-addr-interval: 2018-09-28T00:00:00.000Z/2018-09-29T00:00:00.000Z
+    ds-addr-interval: 2019-01-01T00:00:00.000Z/2019-12-31T00:00:00.000Z
     ds-addr-dim-sido:
       sido_seq, sido_nm, sido_cd
     ds-addr-dim-sgg:
@@ -463,7 +463,7 @@ polaris:
     ds-hday-fltr: hday_yn
     ds-hday-interval: 1900-01-01T00:00:00.000Z/3000-01-01T00:00:00.000Z
     ds-team: dcoo_com_org_info
-    ds-team-interval: 2018-09-19T00:00:00.000Z/2018-09-20T00:00:00.000Z
+    ds-team-interval: 2019-01-01T00:00:00.000Z/2019-12-31T00:00:00.000Z
     ds-team-dim: hdofc_seq, hdofc_nm, hdofc_cd
   icpm:
     ds-icpm: msmf_cust_prfl_mst_sum_1d
