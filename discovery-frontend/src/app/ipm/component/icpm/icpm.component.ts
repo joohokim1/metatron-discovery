@@ -307,33 +307,7 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
 
   protected jQuery = $;
 
-  public testFltr = [
-    {
-        "druidNm": "estmt_rsdnc_sido_cd",
-        "scrnClNm": "address",
-        "fltrVal": [
-            {
-                "code": [
-                    "11"
-                ],
-                "name": [
-                    "서울"
-                ]
-            }
-        ]
-    },
-   {
-        "druidNm": "mbrp_gr_cd",
-        "scrnClNm": "grade_test",
-        "fltrVal": [
-            {
-                "code": "V",
-                "name": "VIP"
-            }
-        ]
-    }
-  ];
-  public jsonFltr = JSON.stringify(this.testFltr, null, 4);
+  public jsonFltr = JSON.stringify(this.filterDataTmp, null, 4);
 
   // 생성자
   constructor(
@@ -497,6 +471,8 @@ export class IcpmComponent extends AbstractComponent implements OnInit {
    * @param chartSetting(차트 설정 호출 여부)
    */
   public getFilterData(chartSetting: boolean): void {
+
+    this.jsonFltr = JSON.stringify( this.filterDataTmp , null, 4);
 
     this.icpmService.getIcpmCharts({
       chartNum: this.chartNum.count,

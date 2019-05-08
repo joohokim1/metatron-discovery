@@ -3582,7 +3582,12 @@ compare .dis_map_wrap { height:97% !important; min-height: 720px;  }
      border:3px solid #7678E9;
      outline: none;
 }
-.range_slider_box .noUi-connect { height: 3px; background: #7678e9; }
+.range_slider_box .noUi-connect { 
+    -ms-transform-origin: 0% 0%; /* IE 9 */
+    -webkit-transform-origin: 0% 0%; /* Chrome, Safari, Opera */
+    transform-origin: 0% 0%;
+    height: 3px; background: #7678e9; 
+}
 .count_gauge .gauge_num { color:#7678E9; }
 
 #ipm_wrap.icpm .date_picker_wrap .date_input_box .date_num:focus { border:1px solid #7678e9; }
